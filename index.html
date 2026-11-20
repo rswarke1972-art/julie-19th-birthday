@@ -8,7 +8,7 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 
-  <!-- Google Fonts: Inter, Cinzel, Playfair Display, Ma Shan Zheng (Chinese Calligraphy), Plus Jakarta Sans -->
+  <!-- Google Fonts: Cinzel, Playfair Display, Ma Shan Zheng (Chinese Calligraphy), Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -54,25 +54,6 @@
             serif: ['"Playfair Display"', 'Georgia', 'serif'],
             cinzel: ['"Cinzel"', 'serif'],
             chinese: ['"Ma Shan Zheng"', 'serif'],
-          },
-          animation: {
-            'float-slow': 'float 6s ease-in-out infinite',
-            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-            'shimmer': 'shimmer 2.5s linear infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-10px)' },
-            },
-            pulseGlow: {
-              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-              '50%': { opacity: '0.8', transform: 'scale(1.04)' },
-            },
-            shimmer: {
-              '0%': { backgroundPosition: '-200% 0' },
-              '100%': { backgroundPosition: '200% 0' },
-            }
           }
         }
       }
@@ -124,19 +105,38 @@
       box-shadow: 0 16px 36px -10px rgba(35, 89, 212, 0.4);
     }
 
-    .book-cover {
-      background: linear-gradient(135deg, #0d1b3e 0%, #071129 100%);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(250, 204, 21, 0.25);
+    /* REAL FLIP-BOOK STYLING */
+    .book-container {
+      perspective: 2000px;
+    }
+    .book-hardcover {
+      background: linear-gradient(135deg, #081126 0%, #0d1e42 50%, #071022 100%);
+      box-shadow: 
+        0 25px 60px -15px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(250, 204, 21, 0.35),
+        inset 0 0 40px rgba(0, 0, 0, 0.85);
+      border-radius: 18px;
+      position: relative;
+    }
+    .book-spine-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(250, 204, 21, 0.3), rgba(0,0,0,0.8));
+      box-shadow: 0 0 12px rgba(0,0,0,0.9);
+      z-index: 20;
+    }
+    .book-page-leaf {
+      background: linear-gradient(135deg, #0b1736 0%, #071026 100%);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(250, 204, 21, 0.18);
     }
 
     .gold-gradient-text {
       background: linear-gradient(135deg, #fef08a 0%, #facc15 50%, #ca8a04 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .blue-gradient-text {
-      background: linear-gradient(135deg, #e1ecfe 0%, #8eb3fc 50%, #3875f6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -160,28 +160,12 @@
       100% { opacity: 0; transform: translateY(-40px) scale(2.5); }
     }
 
-    /* Hide scrollbar for tabs */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
     .no-scrollbar {
       -ms-overflow-style: none;
       scrollbar-width: none;
-    }
-
-    /* Interactive Flashcard 3D flip */
-    .perspective-1000 {
-      perspective: 1000px;
-    }
-    .transform-style-3d {
-      transform-style: preserve-3d;
-    }
-    .backface-hidden {
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .rotate-y-180 {
-      transform: rotateY(180deg);
     }
   </style>
 </head>
@@ -191,40 +175,34 @@
   <!-- STARFIELD BACKGROUND CANVAS                                    -->
   <!-- ============================================================== -->
   <canvas id="starfield" class="fixed inset-0 pointer-events-none z-0"></canvas>
-
-  <!-- Ambient Glow Blobs -->
   <div class="fixed top-0 left-1/4 w-96 h-96 bg-sapphire-600/15 rounded-full blur-[120px] pointer-events-none z-0"></div>
   <div class="fixed bottom-10 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
 
   <!-- ============================================================== -->
   <!-- STICKY TOP AUDIO & NAV BAR                                     -->
   <!-- ============================================================== -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-midnight/80 border-b border-sapphire-500/20 px-4 py-2.5 transition-all">
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-midnight/85 border-b border-sapphire-500/20 px-4 py-2.5 transition-all">
     <div class="max-w-5xl mx-auto flex items-center justify-between gap-3">
       
-      <!-- Brand & Name -->
       <a href="#hero" class="flex items-center gap-2 text-white font-serif font-bold text-sm sm:text-base tracking-wide hover:opacity-90">
         <span class="w-7 h-7 rounded-lg bg-sapphire-600/40 border border-sapphire-400/50 flex items-center justify-center text-xs">✨</span>
         <span class="truncate">Chapter 19 <span class="text-sapphire-300 font-sans font-normal text-xs sm:text-sm">| Julie's Story</span></span>
       </a>
 
-      <!-- Quick Actions -->
       <div class="flex items-center gap-2">
-        <!-- Audio Serenade Button -->
         <button 
           id="musicToggleBtn" 
           onclick="toggleGuitarSerenade()" 
-          class="px-3 py-1.5 rounded-full bg-sapphire-900/80 hover:bg-sapphire-800 border border-sapphire-400/40 text-xs text-amber-300 font-medium flex items-center gap-1.5 transition-all shadow-md active:scale-95"
+          class="px-3 py-1.5 rounded-full bg-sapphire-900/80 hover:bg-sapphire-800 border border-sapphire-400/40 text-xs text-amber-300 font-medium flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer"
           title="Play Acoustic Birthday Serenade"
         >
           <span id="musicIcon">🎸</span>
           <span id="musicText" class="hidden xs:inline sm:inline">Play Melody</span>
         </button>
 
-        <!-- Confetti Trigger -->
         <button 
           onclick="triggerCelebrationConfetti()" 
-          class="w-8 h-8 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 flex items-center justify-center text-xs transition-transform active:scale-90"
+          class="w-8 h-8 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 flex items-center justify-center text-xs transition-transform active:scale-90 cursor-pointer"
           title="Celebrate with Confetti"
         >
           🎉
@@ -244,14 +222,12 @@
     <!-- ============================================================== -->
     <section id="hero" class="text-center space-y-6 pt-4 sm:pt-8">
       
-      <!-- Crown / Birthday Pill -->
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sapphire-950/80 border border-sapphire-400/40 text-xs sm:text-sm text-sapphire-200 shadow-xl backdrop-blur-md">
         <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
         <span class="font-mono uppercase tracking-wider text-[11px] sm:text-xs">November 23, 2026 • Chapter 19</span>
         <span class="text-amber-300">👑</span>
       </div>
 
-      <!-- Main Headline -->
       <div class="space-y-3">
         <h1 class="text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight">
           <span class="block text-white font-serif">Happy 19th Birthday,</span>
@@ -298,8 +274,8 @@
 
       <!-- Quick Nav Buttons for Phone -->
       <div class="flex flex-wrap items-center justify-center gap-2 pt-2 text-xs">
-        <a href="#mandarin-book" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500/20 to-amber-500/20 hover:from-rose-500/30 hover:to-amber-500/30 border border-rose-400/30 text-rose-200 font-semibold flex items-center gap-1.5 transition-all shadow-md">
-          <span>📖 The Book of Mandarin</span>
+        <a href="#mandarin-book" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-rose-500/20 hover:from-amber-500/30 hover:to-rose-500/30 border border-amber-400/40 text-amber-200 font-semibold flex items-center gap-1.5 transition-all shadow-md">
+          <span>📖 The Book of Mandarin (Flip Pages)</span>
         </a>
         <a href="#julie-codex" class="px-4 py-2 rounded-xl bg-sapphire-900/60 hover:bg-sapphire-800/80 border border-sapphire-400/30 text-slate-200 font-semibold flex items-center gap-1.5 transition-all">
           <span>💫 The Julie Codex</span>
@@ -326,7 +302,6 @@
         </p>
       </div>
 
-      <!-- 8 Real Trait Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <!-- Trait 1: Curly & Fluffy -->
@@ -429,415 +404,549 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- CENTERPIECE: THE INTERACTIVE BOOK OF MANDARIN (朱莉的中文之书) -->
+    <!-- CENTERPIECE: REAL FLIP-BOOK OF MANDARIN (朱莉的中文之书)        -->
+    <!-- FLIP LEFT OR RIGHT WITH FULL GOOGLE DRIVE PURCHASE INTEGRATION -->
     <!-- ============================================================== -->
     <section id="mandarin-book" class="space-y-6 scroll-mt-20">
       
-      <!-- Book Header Banner -->
+      <!-- Book Banner Header -->
       <div class="text-center space-y-2">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono uppercase tracking-widest">
-          <span>🇨🇳 朱莉的中文之书</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-mono uppercase tracking-widest shadow">
+          <span>📖 朱莉的中文书 • THE BOOK OF MANDARIN</span>
           <span>•</span>
-          <span>The Book of Mandarin</span>
+          <span>FLIP PAGES ‹ ›</span>
         </div>
         <h2 class="font-serif text-2xl sm:text-4xl font-bold text-white">
-          Julie’s Grimoire of Chinese
+          The Virtual Book of Mandarin
         </h2>
         <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
-          "What motivated me most was the very possibility of learning to understand another language 💅" — Here is your complete study companion, from tone mechanics to classic idioms.
+          Flip the pages left and right to explore the Chinese language, practice with interactive audio & flashcards, and access all Google Drive materials from our complete language purchase.
         </p>
       </div>
 
-      <!-- The Virtual Book Outer Container -->
-      <div class="book-cover rounded-3xl border-2 border-amber-400/30 shadow-2xl overflow-hidden p-4 sm:p-8 space-y-6 relative">
+      <!-- Book Navigation Controls (Top Bar) -->
+      <div class="flex items-center justify-between gap-3 px-2">
+        <button 
+          onclick="prevBookPage()" 
+          class="px-4 py-2 rounded-xl bg-sapphire-900/80 hover:bg-sapphire-800 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all shadow-md active:scale-95 cursor-pointer"
+        >
+          <span>‹</span> <span>Previous Page</span>
+        </button>
+
+        <!-- Current Page Badge -->
+        <div class="text-center">
+          <span id="bookPageIndicator" class="px-3.5 py-1.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono text-xs font-bold tracking-wider">
+            Cover Page
+          </span>
+        </div>
+
+        <button 
+          onclick="nextBookPage()" 
+          class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all shadow-lg shadow-amber-400/25 active:scale-95 cursor-pointer"
+        >
+          <span>Next Page</span> <span>›</span>
+        </button>
+      </div>
+
+      <!-- THE PHYSICAL BOOK CONTAINER -->
+      <div id="bookHardcover" class="book-hardcover p-3 sm:p-6 md:p-8 min-h-[580px] sm:min-h-[620px] flex flex-col justify-between relative overflow-hidden transition-all duration-300">
         
-        <!-- Subtle Calligraphy Watermark -->
-        <div class="absolute right-4 bottom-4 text-8xl sm:text-9xl font-chinese text-amber-400/5 select-none pointer-events-none">
-          学海无涯
+        <!-- Center Book Spine (Visible on md+ screens) -->
+        <div class="book-spine-line hidden md:block"></div>
+
+        <!-- Ribbon Bookmark Decoration -->
+        <div class="absolute -top-1 right-8 w-6 h-14 bg-gradient-to-b from-rose-600 to-rose-700 shadow-md z-30 rounded-b-md flex items-end justify-center pb-1">
+          <span class="text-[9px] text-amber-300 font-mono font-bold">19</span>
         </div>
 
-        <!-- Book Navigation Chapter Tabs -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar justify-start sm:justify-center border-b border-amber-400/20">
-          <button onclick="switchBookChapter(1)" id="book-tab-1" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-400 text-slate-950 shrink-0 shadow-lg shadow-amber-400/20 flex items-center gap-1.5 cursor-pointer">
-            <span>📜</span> Chapter I: The Essence
-          </button>
-          <button onclick="switchBookChapter(2)" id="book-tab-2" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer">
-            <span>🌱</span> Chapter II: Foundations (HSK 1-2)
-          </button>
-          <button onclick="switchBookChapter(3)" id="book-tab-3" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer">
-            <span>🖌️</span> Chapter III: StrokeFlow & Dialogue
-          </button>
-          <button onclick="switchBookChapter(4)" id="book-tab-4" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer">
-            <span>🐉</span> Chapter IV: Chengyu & Mastery
-          </button>
-        </div>
-
-        <!-- BOOK CHAPTER 1: THE ESSENCE OF MANDARIN -->
-        <div id="book-page-1" class="space-y-6 animate-fade-in">
-          
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-wider text-amber-400">Chapter I • 汉字之美</span>
-              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">The Architecture of Mandarin</h3>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/30 font-chinese text-sm">
-              声调与部首
-            </span>
+        <!-- ========================================================== -->
+        <!-- SPREAD 0: BOOK COVER                                       -->
+        <!-- ========================================================== -->
+        <div id="page-spread-0" class="page-spread space-y-6 flex flex-col items-center justify-center text-center py-10 sm:py-16">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-4xl sm:text-5xl shadow-2xl border-2 border-amber-300">
+            書
           </div>
 
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Chinese is not just an alphabet—it is a musical, visual language built upon <strong>four melodic tones</strong> and ancient <strong>pictographic radicals</strong>. Each tone gives the same syllable entirely different meanings!
-          </p>
-
-          <!-- Interactive 4 Tones Soundboard -->
-          <div class="p-4 sm:p-5 rounded-2xl bg-sapphire-950/70 border border-sapphire-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
-                <i data-lucide="volume-2" class="w-4 h-4"></i> Interactive 4 Tones Soundboard (Test with 'Ma')
-              </span>
-              <span class="text-[10px] font-mono text-slate-400">Click each tone to listen!</span>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              
-              <!-- Tone 1 -->
-              <button onclick="playToneAudio(1, 'mā', '妈', 'Mother (High & Flat 55)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-emerald-500/40 text-left transition-all active:scale-95 group cursor-pointer">
-                <div class="flex items-center justify-between">
-                  <span class="text-lg font-bold text-emerald-400">1st: mā</span>
-                  <span class="text-xs text-emerald-300">ˉ</span>
-                </div>
-                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">妈 (Mother)</div>
-                <div class="text-[10px] text-slate-400">High, flat pitch 55</div>
-              </button>
-
-              <!-- Tone 2 -->
-              <button onclick="playToneAudio(2, 'má', '麻', 'Hemp (Rising 35)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-cyan-500/40 text-left transition-all active:scale-95 group cursor-pointer">
-                <div class="flex items-center justify-between">
-                  <span class="text-lg font-bold text-cyan-400">2nd: má</span>
-                  <span class="text-xs text-cyan-300">ˊ</span>
-                </div>
-                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">麻 (Hemp)</div>
-                <div class="text-[10px] text-slate-400">Rising like a question 35</div>
-              </button>
-
-              <!-- Tone 3 -->
-              <button onclick="playToneAudio(3, 'mǎ', '马', 'Horse (Dipping 214)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-amber-500/40 text-left transition-all active:scale-95 group cursor-pointer">
-                <div class="flex items-center justify-between">
-                  <span class="text-lg font-bold text-amber-400">3rd: mǎ</span>
-                  <span class="text-xs text-amber-300">ˇ</span>
-                </div>
-                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">马 (Horse)</div>
-                <div class="text-[10px] text-slate-400">Dips low then rises 214</div>
-              </button>
-
-              <!-- Tone 4 -->
-              <button onclick="playToneAudio(4, 'mà', '骂', 'Scold (Falling 51)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-rose-500/40 text-left transition-all active:scale-95 group cursor-pointer">
-                <div class="flex items-center justify-between">
-                  <span class="text-lg font-bold text-rose-400">4th: mà</span>
-                  <span class="text-xs text-rose-300">ˋ</span>
-                </div>
-                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">骂 (Scold)</div>
-                <div class="text-[10px] text-slate-400">Sharp falling command 51</div>
-              </button>
-
-            </div>
-
-            <!-- Feedback ticker -->
-            <div id="toneFeedback" class="text-xs text-center text-slate-300 italic pt-1">
-              Tap any tone above to hear the Web Audio synthesizer pronounce the acoustic contour!
-            </div>
+          <div class="space-y-2 max-w-lg">
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400">Personalized Chinese Grimoire</span>
+            <h3 class="font-serif text-3xl sm:text-5xl font-extrabold text-white">
+              朱莉的中文书
+            </h3>
+            <p class="font-serif italic text-lg sm:text-xl text-amber-200">
+              The Book of Mandarin
+            </p>
           </div>
 
-          <!-- The Magic of Chinese Characters (Ideograms) -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="text-amber-300 font-chinese text-2xl font-bold">日 + 月 = 明</div>
-              <div class="font-bold text-xs text-white">Sun + Moon = Bright (Míng)</div>
-              <p class="text-[11px] text-slate-400">When the two celestial luminaries stand together, you get radiant brightness.</p>
-            </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="text-amber-300 font-chinese text-2xl font-bold">木 + 木 = 林</div>
-              <div class="font-bold text-xs text-white">Tree + Tree = Woods (Lín)</div>
-              <p class="text-[11px] text-slate-400">Two trees form a woods. Add a third (森) and you get a dense forest.</p>
-            </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="text-amber-300 font-chinese text-2xl font-bold">女 + 子 = 好</div>
-              <div class="font-bold text-xs text-white">Woman + Child = Good (Hǎo)</div>
-              <p class="text-[11px] text-slate-400">The mother holding her child represents harmony and goodness.</p>
-            </div>
+          <div class="max-w-md text-xs sm:text-sm text-slate-300 leading-relaxed px-4">
+            Curated by <strong>Sau</strong> for <strong>Julie's 19th Birthday</strong>. Filled with tone acoustics, writing guides, StrokeFlow integration, and the complete Google Drive vault from our language library.
           </div>
 
-        </div>
-
-        <!-- BOOK CHAPTER 2: FOUNDATIONS (HSK 1-2) -->
-        <div id="book-page-2" class="space-y-6 hidden animate-fade-in">
-          
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-wider text-emerald-400">Chapter II • 基础之石</span>
-              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">The Foundation Grimoire (HSK 1 - 2)</h3>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">
-              Beginner Mastery
-            </span>
-          </div>
-
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Every great journey begins with the first step. Here are complete study guides, flashcard decks, and pronunciation audio drills to build unbreakable fundamentals.
-          </p>
-
-          <!-- 3 Big Attractive Resource Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
-            <!-- Resource Card 1: Pinyin Masterclass -->
-            <div class="p-5 rounded-2xl bg-slate-900/80 border-2 border-emerald-500/30 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-4 shadow-xl">
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between">
-                  <span class="text-2xl">🎧</span>
-                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Pinyin + Audio</span>
-                </div>
-                <h4 class="font-bold text-white text-base">Comprehensive Pinyin & Audio Drills</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  21 initials, 36 finals, tone rules, and acoustic drills to eradicate accent friction right from the beginning.
-                </p>
-              </div>
-
-              <!-- Big Attractive Action Button -->
-              <button 
-                onclick="openStudyModal('pinyin')" 
-                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
-              >
-                <span>🔊 Open Audio Drills</span>
-                <i data-lucide="headphones" class="w-4 h-4"></i>
-              </button>
-            </div>
-
-            <!-- Resource Card 2: HSK 1-2 Flashcards -->
-            <div class="p-5 rounded-2xl bg-slate-900/80 border-2 border-sapphire-500/30 hover:border-sapphire-400 transition-all flex flex-col justify-between space-y-4 shadow-xl">
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between">
-                  <span class="text-2xl">🎴</span>
-                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-sapphire-500/20 text-sapphire-300">300 Vocabulary</span>
-                </div>
-                <h4 class="font-bold text-white text-base">Interactive HSK 1-2 Flashcard Deck</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Flip through essential high-frequency characters, pinyin, and example sentences with instant interactive flashcards.
-                </p>
-              </div>
-
-              <!-- Big Attractive Action Button -->
-              <button 
-                onclick="openStudyModal('flashcards')" 
-                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sapphire-500 to-indigo-600 hover:from-sapphire-400 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-sapphire-500/25 flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
-              >
-                <span>🎴 Launch Flashcards</span>
-                <i data-lucide="layers" class="w-4 h-4"></i>
-              </button>
-            </div>
-
-            <!-- Resource Card 3: Radical & Stroke Guide -->
-            <div class="p-5 rounded-2xl bg-slate-900/80 border-2 border-amber-500/30 hover:border-amber-400 transition-all flex flex-col justify-between space-y-4 shadow-xl">
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between">
-                  <span class="text-2xl">📄</span>
-                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">PDF Guide</span>
-                </div>
-                <h4 class="font-bold text-white text-base">The Radical & Stroke Order Manual</h4>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Learn the 8 basic strokes (横 竖 撇 捺 点 提 钩 折) and the top 50 radicals that decode 80% of everyday Chinese.
-                </p>
-              </div>
-
-              <!-- Big Attractive Action Button -->
-              <button 
-                onclick="openStudyModal('radicals')" 
-                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-400/25 flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
-              >
-                <span>📖 View Radical Codex</span>
-                <i data-lucide="book-open" class="w-4 h-4"></i>
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- BOOK CHAPTER 3: STROKEFLOW & DIALOGUE (HSK 3-4) -->
-        <div id="book-page-3" class="space-y-6 hidden animate-fade-in">
-          
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-wider text-amber-400">Chapter III • 笔画与对话</span>
-              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">StrokeFlow & Intermediate Dialogues</h3>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono">
-              Intermediate Fluency
-            </span>
-          </div>
-
-          <!-- CROWN JEWEL: STROKEFLOW PROMINENT SPOTLIGHT -->
-          <div class="p-6 rounded-2xl bg-gradient-to-br from-sapphire-900/90 via-midnight to-slate-900 border-2 border-amber-400 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            
-            <div class="flex items-start gap-4">
-              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-2xl shadow-xl shrink-0">
-                🖌️
-              </div>
-              <div class="space-y-2">
-                <div class="flex flex-wrap items-center gap-2">
-                  <h4 class="font-bold text-white text-xl">StrokeFlow</h4>
-                  <span class="text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950">Official Featured App</span>
-                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-sapphire-500/30 text-sapphire-200">Built by Sau</span>
-                </div>
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
-                  The interactive stroke order writing app hosted on GitHub. Practice writing every Chinese character with guided animations, stroke counters, and instant feedback. Julie tested and approved it in April!
-                </p>
-                <div class="text-[11px] text-amber-300 italic">
-                  Julie: "Wow, you do them so quickly hehe... Thank you for your support 🤍"
-                </div>
-              </div>
-            </div>
-
-            <a 
-              href="https://rswarke1972-art.github.io/StrokeFlow/" 
-              target="_blank"
-              class="w-full md:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-3 transition-transform transform hover:scale-105 shadow-xl shadow-amber-400/30 shrink-0 cursor-pointer"
+          <!-- Open Book Call to Action -->
+          <div class="pt-4">
+            <button 
+              onclick="nextBookPage()" 
+              class="px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl shadow-amber-400/30 flex items-center gap-3 transition-transform transform hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <span>🚀 Launch StrokeFlow</span>
-              <i data-lucide="external-link" class="w-4 h-4"></i>
-            </a>
-
+              <span>📖 Open The Book / 翻开书卷</span>
+              <span>›</span>
+            </button>
           </div>
 
-          <!-- Intermediate Resources Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            
-            <!-- Conversational Situations -->
-            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-700/80 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="text-xl">🗣️</span>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">50 Dialogues</span>
-                </div>
-                <h5 class="font-bold text-white text-sm">Real-Life Conversational Dialogues</h5>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Ordering bubble tea, booking trains, discussing hobbies, and casual chatting with friends in modern spoken Mandarin.
-                </p>
-              </div>
+          <div class="text-[11px] font-mono text-slate-400 pt-2">
+            November 23, 2026 • First Edition
+          </div>
+        </div>
 
-              <button 
-                onclick="openStudyModal('dialogue')" 
-                class="w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
-              >
-                <span>💬 View Dialogue Script</span>
-                <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-              </button>
+        <!-- ========================================================== -->
+        <!-- SPREAD 1 (PAGES 1 & 2): SOUL OF MANDARIN & 4 TONES          -->
+        <!-- ========================================================== -->
+        <div id="page-spread-1" class="page-spread hidden grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          
+          <!-- Left Page: The Philosophy & Ideograms -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-amber-400 font-bold">Page 1 • 序言与造字</span>
+                <span class="text-xs text-slate-400">Chapter I</span>
+              </div>
+              <h4 class="font-serif text-xl sm:text-2xl font-bold text-white">The Soul of Chinese</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Chinese is an ancient, pictographic language where characters tell visual stories:
+              </p>
+
+              <!-- Radical Math -->
+              <div class="space-y-2 pt-1 text-xs">
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                  <div class="font-chinese text-amber-300 text-lg font-bold">日 (Sun) + 月 (Moon) = 明 (Bright)</div>
+                  <div class="text-[11px] text-slate-300">When the celestial lights combine, you achieve ultimate clarity.</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                  <div class="font-chinese text-amber-300 text-lg font-bold">木 (Tree) + 木 (Tree) = 林 (Woods)</div>
+                  <div class="text-[11px] text-slate-300">Two trees form a woods; three trees (森) become a dense forest.</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                  <div class="font-chinese text-amber-300 text-lg font-bold">女 (Woman) + 子 (Child) = 好 (Good)</div>
+                  <div class="text-[11px] text-slate-300">The mother holding her child signifies universal harmony.</div>
+                </div>
+              </div>
             </div>
 
-            <!-- Graded Reading Stories -->
-            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-700/80 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="text-xl">📖</span>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">Storybook</span>
-                </div>
-                <h5 class="font-bold text-white text-sm">Graded Fiction Stories (HSK 3-4)</h5>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                  Carefully written short stories with pinyin annotations and English glosses to build reading endurance naturally.
-                </p>
+            <!-- Julie's quote -->
+            <div class="p-3 rounded-xl bg-sapphire-950/80 border-l-4 border-amber-400 text-xs italic text-slate-200">
+              "What motivated me most was the very possibility of learning to understand another language 💅" — Julie
+            </div>
+          </div>
+
+          <!-- Right Page: The 4 Melodic Tones & Soundboard -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-amber-400 font-bold">Page 2 • 四声发音</span>
+                <span class="text-xs text-slate-400">Acoustics</span>
+              </div>
+              <h4 class="font-serif text-xl sm:text-2xl font-bold text-white">The 4 Melodic Tones</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Tap each tone button to hear the synthesized pitch contour in your browser:
+              </p>
+
+              <!-- Interactive Tone Soundboard -->
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <button onclick="playToneAudio(1, 'mā', '妈', 'Mother (High & Flat 55)')" class="p-2.5 rounded-xl bg-slate-900 border border-emerald-500/40 text-left hover:border-emerald-300 transition-all active:scale-95 cursor-pointer">
+                  <span class="text-emerald-400 font-bold text-xs">1st: mā (ˉ)</span>
+                  <div class="text-lg font-chinese text-white">妈 (Mother)</div>
+                  <div class="text-[10px] text-slate-400">High flat 55</div>
+                </button>
+                <button onclick="playToneAudio(2, 'má', '麻', 'Hemp (Rising 35)')" class="p-2.5 rounded-xl bg-slate-900 border border-cyan-500/40 text-left hover:border-cyan-300 transition-all active:scale-95 cursor-pointer">
+                  <span class="text-cyan-400 font-bold text-xs">2nd: má (ˊ)</span>
+                  <div class="text-lg font-chinese text-white">麻 (Hemp)</div>
+                  <div class="text-[10px] text-slate-400">Rising 35</div>
+                </button>
+                <button onclick="playToneAudio(3, 'mǎ', '马', 'Horse (Dipping 214)')" class="p-2.5 rounded-xl bg-slate-900 border border-amber-500/40 text-left hover:border-amber-300 transition-all active:scale-95 cursor-pointer">
+                  <span class="text-amber-400 font-bold text-xs">3rd: mǎ (ˇ)</span>
+                  <div class="text-lg font-chinese text-white">马 (Horse)</div>
+                  <div class="text-[10px] text-slate-400">Dip & rise 214</div>
+                </button>
+                <button onclick="playToneAudio(4, 'mà', '骂', 'Scold (Falling 51)')" class="p-2.5 rounded-xl bg-slate-900 border border-rose-500/40 text-left hover:border-rose-300 transition-all active:scale-95 cursor-pointer">
+                  <span class="text-rose-400 font-bold text-xs">4th: mà (ˋ)</span>
+                  <div class="text-lg font-chinese text-white">骂 (Scold)</div>
+                  <div class="text-[10px] text-slate-400">Sharp drop 51</div>
+                </button>
               </div>
 
-              <button 
-                onclick="openStudyModal('stories')" 
-                class="w-full py-2.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
-              >
-                <span>📚 Read Story Excerpt</span>
-                <i data-lucide="book" class="w-3.5 h-3.5"></i>
-              </button>
+              <div id="toneFeedback" class="text-[11px] text-amber-300 italic text-center">
+                Click any tone above to hear the audio synthesizer!
+              </div>
             </div>
 
+            <div class="pt-2 flex justify-end">
+              <span class="text-xs font-mono text-slate-400">Turn to Page 3 for Drive Vault →</span>
+            </div>
           </div>
 
         </div>
 
-        <!-- BOOK CHAPTER 4: CHENGYU & ADVANCED MASTERY -->
-        <div id="book-page-4" class="space-y-6 hidden animate-fade-in">
+        <!-- ========================================================== -->
+        <!-- SPREAD 2 (PAGES 3 & 4): GOOGLE DRIVE VAULT & FOUNDATIONS   -->
+        <!-- ========================================================== -->
+        <div id="page-spread-2" class="page-spread hidden grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-wider text-rose-400">Chapter IV • 成语宝库</span>
-              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">The Treasury of Chengyu & Mastery</h3>
+          <!-- Left Page: The Official Google Drive Purchase Vault -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4 border-2 border-amber-400/50">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-amber-400 font-bold">Page 3 • 网盘资源宝库</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">Official Purchase</span>
+              </div>
+              
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-xl shadow">
+                  📂
+                </div>
+                <div>
+                  <h4 class="font-serif text-lg sm:text-xl font-bold text-white">Google Drive Mandarin Vault</h4>
+                  <div class="text-[10px] text-slate-400">All-in-One Multi-Language Pack • Purchase 5</div>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Direct access to our purchased cloud library containing every Chinese textbook, audio series, and HSK preparation material:
+              </p>
+
+              <!-- Included Materials List -->
+              <div class="space-y-1.5 text-xs text-slate-300">
+                <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-900/80">
+                  <span class="text-amber-400">📑</span>
+                  <span><strong>Chinese Learning Pack</strong> (Mandarin characters & grammar PDFs)</span>
+                </div>
+                <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-900/80">
+                  <span class="text-emerald-400">🎧</span>
+                  <span><strong>Complete Audio Drills</strong> (Native speaker MP3 recordings)</span>
+                </div>
+                <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-900/80">
+                  <span class="text-cyan-400">📚</span>
+                  <span><strong>HSK 1 - 4 Prep</strong> (Full vocabulary & graded reader eBooks)</span>
+                </div>
+              </div>
             </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono">
-              HSK 4+ & Culture
-            </span>
+
+            <!-- DIRECT GOOGLE DRIVE ACTION BUTTON -->
+            <div class="pt-2">
+              <a 
+                href="https://drive.google.com/drive/folders/126kvhSFk0kOE4IFrGIg4Jes96LUUR_md" 
+                target="_blank"
+                class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl shadow-amber-400/30 flex items-center justify-center gap-2.5 transition-transform transform hover:scale-[1.02] active:scale-95 cursor-pointer"
+              >
+                <span>📂 Open Google Drive Chinese Vault</span>
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+              <div class="text-[10px] text-center text-slate-400 pt-1 font-mono">
+                Direct access link to Google Drive folder
+              </div>
+            </div>
           </div>
 
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Chengyu (成语) are 4-character idiomatic expressions distilled from millennia of history and literature. Using a single chengyu conveys an entire philosophical worldview.
-          </p>
-
-          <!-- 4 Curated Chengyu Cards Dedicated to Julie -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            
-            <!-- Chengyu 1: 坚持不懈 -->
-            <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-2xl font-chinese text-rose-300 font-bold">坚持不懈</span>
-                <span class="text-[10px] font-mono text-slate-400">jiān chí bù xiè</span>
+          <!-- Right Page: HSK 1-2 Study Guide & Interactive Flashcards -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-emerald-400 font-bold">Page 4 • 基础字卡</span>
+                <span class="text-xs text-slate-400">HSK 1 - 2</span>
               </div>
-              <div class="font-bold text-xs text-white">Persevere Without Giving Up</div>
-              <p class="text-[11px] text-slate-300">
-                Describes relentless determination in mastering languages, music, and skills. Dedicated to Julie's guitar & language dedication.
+              <h4 class="font-serif text-xl sm:text-2xl font-bold text-white">Beginner Foundations</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Test your memory with the interactive flashcard deck or review the essential radicals:
               </p>
+
+              <!-- Flashcard Preview / Launch -->
+              <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-white">🎴 HSK 1-2 Flashcards</span>
+                  <span class="text-[10px] font-mono text-amber-300">Tap to flip & audio</span>
+                </div>
+                <p class="text-[11px] text-slate-300">
+                  Custom cards covering: 朋友 (Friend), 蛋糕 (Cake), 吉他 (Guitar), 学习 (Study), and 生日快乐!
+                </p>
+                <button 
+                  onclick="openStudyModal('flashcards')"
+                  class="w-full py-2.5 px-4 rounded-lg bg-sapphire-600 hover:bg-sapphire-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>🎴 Open Interactive Flashcard Reader</span>
+                </button>
+              </div>
+
+              <!-- Pinyin Phonetics Button -->
+              <button 
+                onclick="openStudyModal('pinyin')"
+                class="w-full py-2.5 px-4 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-slate-600 cursor-pointer"
+              >
+                <span>🔊 Open Pinyin & Phonetics Chart</span>
+              </button>
             </div>
 
-            <!-- Chengyu 2: 一见如故 -->
-            <div class="p-4 rounded-xl bg-slate-900/80 border border-amber-500/30 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-2xl font-chinese text-amber-300 font-bold">一见如故</span>
-                <span class="text-[10px] font-mono text-slate-400">yī jiàn rú gù</span>
-              </div>
-              <div class="font-bold text-xs text-white">Friends Like Old Times From First Meeting</div>
-              <p class="text-[11px] text-slate-300">
-                To connect instantly as if you have known each other for years. Exactly how our friendship felt from day one!
-              </p>
+            <div class="pt-2 flex justify-end">
+              <span class="text-xs font-mono text-slate-400">Turn to Page 5 for StrokeFlow →</span>
             </div>
-
-            <!-- Chengyu 3: 锦上添花 -->
-            <div class="p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-2xl font-chinese text-emerald-300 font-bold">锦上添花</span>
-                <span class="text-[10px] font-mono text-slate-400">jǐn shàng tiān huā</span>
-              </div>
-              <div class="font-bold text-xs text-white">Adding Flowers to Brocade Embroidery</div>
-              <p class="text-[11px] text-slate-300">
-                To make something that is already splendid even more magnificent. May your 19th year bring endless beauty to your life!
-              </p>
-            </div>
-
-            <!-- Chengyu 4: 志同道合 -->
-            <div class="p-4 rounded-xl bg-slate-900/80 border border-sapphire-500/30 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-2xl font-chinese text-sapphire-300 font-bold">志同道合</span>
-                <span class="text-[10px] font-mono text-slate-400">zhì tóng dào hé</span>
-              </div>
-              <div class="font-bold text-xs text-white">Sharing Similar Ideals & Paths</div>
-              <p class="text-[11px] text-slate-300">
-                Two people who walk parallel paths of creativity, testing, book writing, and mutual encouragement.
-              </p>
-            </div>
-
           </div>
 
-          <!-- Big Action Button for Audio Comprehension -->
-          <button 
-            onclick="openStudyModal('audio_course')" 
-            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
-          >
-            <span>🎙️ Access Advanced Audio Comprehension & Pimsleur Syllabus</span>
-            <i data-lucide="radio" class="w-4 h-4"></i>
-          </button>
+        </div>
 
+        <!-- ========================================================== -->
+        <!-- SPREAD 3 (PAGES 5 & 6): STROKEFLOW & CONVERSATIONAL DIALOG -->
+        <!-- ========================================================== -->
+        <div id="page-spread-3" class="page-spread hidden grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          
+          <!-- Left Page: StrokeFlow (Sau's Featured Creation) -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4 border-2 border-amber-400">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-amber-400 font-bold">Page 5 • 特别推荐应用</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 font-bold">Featured App</span>
+              </div>
+              
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-2xl shadow-xl">
+                  🖌️
+                </div>
+                <div>
+                  <h4 class="font-serif text-xl sm:text-2xl font-bold text-white">StrokeFlow</h4>
+                  <div class="text-[10px] text-amber-300 font-mono">Interactive Character Stroke App • Built by Sau</div>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed">
+                The interactive stroke order writing app Sau created and deployed on GitHub Pages. You tested it in April and cheered it on! Practice drawing every character with guided animated strokes.
+              </p>
+
+              <div class="p-3 rounded-xl bg-sapphire-950/70 border-l-4 border-amber-400 text-xs italic text-slate-200">
+                Julie: "Wow, you do them so quickly hehe... Thank you for your support 🤍"
+              </div>
+            </div>
+
+            <!-- DIRECT STROKEFLOW ACTION BUTTON -->
+            <div class="pt-2">
+              <a 
+                href="https://rswarke1972-art.github.io/StrokeFlow/" 
+                target="_blank"
+                class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl shadow-amber-400/30 flex items-center justify-center gap-2.5 transition-transform transform hover:scale-[1.02] active:scale-95 cursor-pointer"
+              >
+                <span>🚀 Launch StrokeFlow Web App</span>
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+              <div class="text-[10px] text-center text-slate-400 pt-1 font-mono">
+                Hosted live on GitHub Pages
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Page: Dialogues & Graded Reading Stories -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-purple-400 font-bold">Page 6 • 情景对话与故事</span>
+                <span class="text-xs text-slate-400">HSK 3 - 4</span>
+              </div>
+              <h4 class="font-serif text-xl sm:text-2xl font-bold text-white">Dialogues & Short Stories</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Practice conversational flow with situational scripts and read graded short fiction:
+              </p>
+
+              <!-- Dialogue Trigger -->
+              <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-white">🗣️ Sau & Julie Birthday Dialogue</span>
+                  <span class="text-[10px] text-purple-300 font-mono">Script</span>
+                </div>
+                <p class="text-[11px] text-slate-300">
+                  "Zhūlì, zhù nǐ shí jiǔ suì shēngrì kuàilè! — Xièxie nǐ! Wǒ jīntiān kǎo le dàngāo..."
+                </p>
+                <button 
+                  onclick="openStudyModal('dialogue')"
+                  class="w-full py-2 px-3 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase cursor-pointer"
+                >
+                  View Full Dialogue Script
+                </button>
+              </div>
+
+              <!-- Story Trigger -->
+              <button 
+                onclick="openStudyModal('stories')"
+                class="w-full py-2.5 px-4 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>📖 Read Story: "The Girl Who Plays Guitar"</span>
+              </button>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+              <span class="text-xs font-mono text-slate-400">Turn to Page 7 for Chengyu →</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SPREAD 4 (PAGES 7 & 8): CHENGYU & BONUS COOKBOOK           -->
+        <!-- ========================================================== -->
+        <div id="page-spread-4" class="page-spread hidden grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          
+          <!-- Left Page: Treasury of Chengyu (成语) -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-rose-400 font-bold">Page 7 • 成语精选</span>
+                <span class="text-xs text-slate-400">Classical Idioms</span>
+              </div>
+              <h4 class="font-serif text-xl sm:text-2xl font-bold text-white">The Treasury of Chengyu</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                4-character idioms embodying wisdom and friendship:
+              </p>
+
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                  <div class="flex items-center justify-between">
+                    <span class="font-chinese text-rose-300 font-bold text-base">坚持不懈</span>
+                    <span class="text-[10px] text-slate-400 font-mono">jiān chí bù xiè</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">Relentless perseverance in learning music and languages.</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                  <div class="flex items-center justify-between">
+                    <span class="font-chinese text-amber-300 font-bold text-base">一见如故</span>
+                    <span class="text-[10px] text-slate-400 font-mono">yī jiàn rú gù</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">Connecting like old friends right from the first day.</div>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80">
+                  <div class="flex items-center justify-between">
+                    <span class="font-chinese text-emerald-300 font-bold text-base">锦上添花</span>
+                    <span class="text-[10px] text-slate-400 font-mono">jǐn shàng tiān huā</span>
+                  </div>
+                  <div class="text-[11px] text-slate-300">Adding flowers to embroidery; making a wonderful year even greater.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pimsleur syllabus trigger -->
+            <button 
+              onclick="openStudyModal('audio_course')"
+              class="w-full py-2.5 px-3 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase cursor-pointer"
+            >
+              🎙️ View Pimsleur Audio Listening Syllabus
+            </button>
+          </div>
+
+          <!-- Right Page: Bonus Chinese Cooking Book from Purchase 6 -->
+          <div class="book-page-leaf p-5 sm:p-6 rounded-2xl flex flex-col justify-between space-y-4 border-2 border-emerald-400/40">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-amber-400/20 pb-2">
+                <span class="text-xs font-mono uppercase text-emerald-400 font-bold">Page 8 • 烹饪与烘焙特典</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono">Purchase 6 Bonus</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 flex items-center justify-center font-bold text-xl shadow">
+                  🍳
+                </div>
+                <div>
+                  <h4 class="font-serif text-lg sm:text-xl font-bold text-white">Mastering Chinese Cooking</h4>
+                  <div class="text-[10px] text-slate-400">By Eileen Yin-Fei Lo & Susie Cushner</div>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed">
+                A special bonus for Julie the baker and cooking enthusiast! An authentic culinary masterclass from our Mega Cookbooks library:
+              </p>
+
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 text-xs text-slate-300 space-y-1">
+                <div class="font-bold text-white">Includes:</div>
+                <ul class="list-disc list-inside space-y-0.5 text-[11px] text-slate-300">
+                  <li>Wok technique & tea-smoked delicacies</li>
+                  <li>Traditional steamed dumplings & dim sum sweets</li>
+                  <li>Chinese baking pastries and festive desserts</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- DIRECT COOKBOOK DRIVE LINK -->
+            <div class="pt-2">
+              <a 
+                href="https://drive.google.com/drive/folders/1hubH99xhqe8LzjaN25lZ4gzgp2IfRHEt" 
+                target="_blank"
+                class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-xs uppercase tracking-wider shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 transition-transform transform hover:scale-[1.02] active:scale-95 cursor-pointer"
+              >
+                <span>📥 Download Chinese Cooking Book (Drive)</span>
+                <i data-lucide="download" class="w-4 h-4"></i>
+              </a>
+              <div class="text-[10px] text-center text-slate-400 pt-1 font-mono">
+                Direct access to Mega Cookbook Purchase folder
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- SPREAD 5: BACK COVER                                       -->
+        <!-- ========================================================== -->
+        <div id="page-spread-5" class="page-spread hidden space-y-6 flex flex-col items-center justify-center text-center py-10 sm:py-16">
+          <div class="w-16 h-16 rounded-full bg-sapphire-600/30 border border-amber-400/50 flex items-center justify-center text-3xl">
+            ✨
+          </div>
+
+          <div class="space-y-2 max-w-lg">
+            <span class="text-xs uppercase font-mono tracking-widest text-amber-400">Chapter 19 • Epilogue</span>
+            <h3 class="font-serif text-3xl sm:text-4xl font-bold text-white">
+              End of The Book of Mandarin
+            </h3>
+            <p class="font-serif italic text-base sm:text-lg text-slate-300">
+              "Every great adventure starts with a single character."
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-amber-400/30 max-w-md space-y-2">
+            <div class="text-xs text-amber-300 font-bold uppercase tracking-wider">All Purchase Vaults Accessible:</div>
+            <div class="flex flex-col gap-2 pt-1">
+              <a href="https://drive.google.com/drive/folders/126kvhSFk0kOE4IFrGIg4Jes96LUUR_md" target="_blank" class="text-xs text-sapphire-300 hover:text-white underline font-mono">
+                → All-in-One Multi-Language Pack (46 Languages)
+              </a>
+              <a href="https://drive.google.com/drive/folders/1hubH99xhqe8LzjaN25lZ4gzgp2IfRHEt" target="_blank" class="text-xs text-emerald-300 hover:text-white underline font-mono">
+                → Mega Cookbooks & Baking Library (Purchase 6)
+              </a>
+              <a href="https://rswarke1972-art.github.io/StrokeFlow/" target="_blank" class="text-xs text-amber-300 hover:text-white underline font-mono">
+                → StrokeFlow Chinese Character Writing App
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <button 
+              onclick="goToBookSpread(0)" 
+              class="px-5 py-2.5 rounded-xl bg-sapphire-900/80 hover:bg-sapphire-800 border border-sapphire-400/40 text-xs font-bold text-slate-200 cursor-pointer"
+            >
+              ↺ Return to Cover
+            </button>
+            <a 
+              href="#cake-section" 
+              class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold uppercase"
+            >
+              🎂 Go Blow Out The Candles!
+            </a>
+          </div>
+        </div>
+
+        <!-- Book Navigation Dots / Spread Indicators (Bottom Bar) -->
+        <div class="pt-6 border-t border-slate-800/80 mt-6 flex flex-wrap items-center justify-between gap-2 z-20">
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            <button onclick="goToBookSpread(0)" id="spread-btn-0" class="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-amber-400 text-slate-950 transition-all cursor-pointer">Cover</button>
+            <button onclick="goToBookSpread(1)" id="spread-btn-1" class="px-2.5 py-1 rounded-lg text-[11px] font-mono text-slate-400 hover:text-white bg-slate-900/60 transition-all cursor-pointer">Pages 1-2</button>
+            <button onclick="goToBookSpread(2)" id="spread-btn-2" class="px-2.5 py-1 rounded-lg text-[11px] font-mono text-slate-400 hover:text-white bg-slate-900/60 transition-all cursor-pointer">Pages 3-4 (Drive)</button>
+            <button onclick="goToBookSpread(3)" id="spread-btn-3" class="px-2.5 py-1 rounded-lg text-[11px] font-mono text-slate-400 hover:text-white bg-slate-900/60 transition-all cursor-pointer">Pages 5-6 (StrokeFlow)</button>
+            <button onclick="goToBookSpread(4)" id="spread-btn-4" class="px-2.5 py-1 rounded-lg text-[11px] font-mono text-slate-400 hover:text-white bg-slate-900/60 transition-all cursor-pointer">Pages 7-8 (Bonus)</button>
+            <button onclick="goToBookSpread(5)" id="spread-btn-5" class="px-2.5 py-1 rounded-lg text-[11px] font-mono text-slate-400 hover:text-white bg-slate-900/60 transition-all cursor-pointer">Back Cover</button>
+          </div>
+
+          <div class="text-[11px] font-mono text-slate-400 flex items-center gap-2">
+            <span>Swipe Left/Right or use ‹ › keys</span>
+          </div>
         </div>
 
       </div>
@@ -859,7 +968,7 @@
         </p>
       </div>
 
-      <!-- Chapter Tabs (Horizontally scrollable on mobile) -->
+      <!-- Chapter Tabs -->
       <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar justify-start sm:justify-center">
         <button onclick="switchChapter(1)" id="tab-1" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-600 text-white shrink-0 cursor-pointer">Ch. I: Genesis</button>
         <button onclick="switchChapter(2)" id="tab-2" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. II: First Game</button>
@@ -886,13 +995,11 @@
             "You're julie from russia right? — Yesss, it's me)". That day, you changed the Instagram chat theme to Apple and Care. We talked about learning Mandarin Chinese, HSK levels, and Russian. It was the start of an unforgettable friendship.
           </p>
 
-          <!-- Quote Block -->
           <div class="p-3.5 rounded-xl bg-sapphire-950/60 border-l-4 border-amber-400 text-xs italic text-slate-200">
             <span id="chapterQuote">"Oh, thanks for the advice! I'm learning Chinese with a tutor, so I'm already following the program ✨️"</span>
           </div>
         </div>
 
-        <!-- Next / Prev Controls -->
         <div class="flex items-center justify-between pt-6 border-t border-slate-800/80 mt-6">
           <button onclick="prevChapter()" class="text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer">
             <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous Chapter
@@ -1029,9 +1136,7 @@
 
       <!-- Illustrated Birthday Cake -->
       <div class="py-6 flex flex-col items-center justify-center">
-        <!-- Candles Row -->
         <div class="flex items-end justify-center gap-3 mb-2" id="candlesRow">
-          <!-- 5 Candle Items -->
           <div class="flex flex-col items-center candle-item">
             <div class="w-3.5 h-6 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-lg shadow-amber-400"></div>
             <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
@@ -1042,7 +1147,6 @@
             <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
             <div class="w-2 h-8 rounded-sm bg-gradient-to-b from-amber-300 to-amber-500 border border-amber-400"></div>
           </div>
-          <!-- Center 19 Candle -->
           <div class="flex flex-col items-center candle-item">
             <div class="w-4 h-7 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-xl shadow-amber-400"></div>
             <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
@@ -1060,11 +1164,9 @@
           </div>
         </div>
 
-        <!-- Cake Tier 1 -->
         <div class="w-44 h-12 rounded-t-2xl bg-gradient-to-r from-sapphire-500 via-indigo-400 to-sapphire-500 border-2 border-sapphire-300/50 shadow-md flex items-center justify-center">
           <span class="text-[11px] font-serif font-bold text-white tracking-widest uppercase">Happy 19th Julie</span>
         </div>
-        <!-- Cake Tier 2 -->
         <div class="w-60 h-16 rounded-b-2xl bg-gradient-to-r from-sapphire-800 via-sapphire-700 to-sapphire-800 border-2 border-t-0 border-sapphire-400/40 shadow-xl flex items-center justify-around px-4">
           <span class="text-xs">✨</span>
           <span class="text-xs">🤍</span>
@@ -1074,7 +1176,6 @@
         </div>
       </div>
 
-      <!-- Action Button -->
       <div>
         <button 
           id="blowCandlesBtn"
@@ -1085,7 +1186,6 @@
         </button>
       </div>
 
-      <!-- Secret Wish Unlocked Message -->
       <div id="wishMessage" class="hidden p-4 rounded-xl bg-sapphire-900/80 border border-amber-400/50 text-xs text-amber-200 animate-fade-in space-y-1">
         <div class="font-bold text-white text-sm">🎉 Wish Dispatched to the Universe!</div>
         <p>May your 19th year bring absolute mastery of the guitar, fluent Mandarin, exciting trips, delicious homemade cakes, and endless joy. You deserve the best!</p>
@@ -1180,12 +1280,11 @@
 
       <!-- Modal Dynamic Body -->
       <div id="modalBody" class="p-5 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-300">
-        <!-- Content injected dynamically via openStudyModal(type) -->
       </div>
 
       <!-- Modal Footer -->
       <div class="p-4 border-t border-sapphire-500/30 bg-sapphire-950/60 flex items-center justify-between">
-        <span class="text-[10px] text-slate-400 font-mono">Curated with love by Sau</span>
+        <span class="text-[10px] text-slate-400 font-mono">From Sau's Digital Vault</span>
         <button onclick="closeStudyModal()" class="px-4 py-2 rounded-xl bg-sapphire-600 hover:bg-sapphire-500 text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">
           Close Reader
         </button>
@@ -1276,19 +1375,80 @@
     updateCountdown();
 
     // -----------------------------------------------------------------
-    // 3. BOOK OF MANDARIN CHAPTER SWITCHER
+    // 3. REAL FLIP-BOOK ENGINE (PAGE SPREADS: 0 to 5)
     // -----------------------------------------------------------------
-    function switchBookChapter(num) {
-      for (let i = 1; i <= 4; i++) {
-        const page = document.getElementById(`book-page-${i}`);
-        const tab = document.getElementById(`book-tab-${i}`);
-        if (i === num) {
-          page.classList.remove('hidden');
-          tab.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-400 text-slate-950 shrink-0 shadow-lg shadow-amber-400/20 flex items-center gap-1.5 cursor-pointer";
+    let currentBookSpread = 0;
+    const totalSpreads = 6;
+    const spreadTitles = [
+      "Cover Page",
+      "Pages 1-2 (Soul & Tones)",
+      "Pages 3-4 (Drive Vault)",
+      "Pages 5-6 (StrokeFlow)",
+      "Pages 7-8 (Cookbook Bonus)",
+      "Back Cover"
+    ];
+
+    function goToBookSpread(spreadIndex) {
+      if (spreadIndex < 0) spreadIndex = 0;
+      if (spreadIndex >= totalSpreads) spreadIndex = totalSpreads - 1;
+      currentBookSpread = spreadIndex;
+
+      for (let i = 0; i < totalSpreads; i++) {
+        const spread = document.getElementById(`page-spread-${i}`);
+        const btn = document.getElementById(`spread-btn-${i}`);
+        if (i === currentBookSpread) {
+          spread.classList.remove('hidden');
+          if (btn) btn.className = "px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-amber-400 text-slate-950 transition-all cursor-pointer shadow";
         } else {
-          page.classList.add('hidden');
-          tab.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer";
+          spread.classList.add('hidden');
+          if (btn) btn.className = "px-2.5 py-1 rounded-lg text-[11px] font-mono text-slate-400 hover:text-white bg-slate-900/60 transition-all cursor-pointer";
         }
+      }
+
+      const indicator = document.getElementById('bookPageIndicator');
+      if (indicator) {
+        indicator.innerText = spreadTitles[currentBookSpread];
+      }
+    }
+
+    function nextBookPage() {
+      if (currentBookSpread < totalSpreads - 1) {
+        goToBookSpread(currentBookSpread + 1);
+      } else {
+        goToBookSpread(0); // Loop back to cover
+      }
+    }
+
+    function prevBookPage() {
+      if (currentBookSpread > 0) {
+        goToBookSpread(currentBookSpread - 1);
+      }
+    }
+
+    // Keyboard Arrow navigation for book
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextBookPage();
+      if (e.key === 'ArrowLeft') prevBookPage();
+    });
+
+    // Touch Swipe Left/Right for Book
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const bookElement = document.getElementById('bookHardcover');
+    bookElement.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    bookElement.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleBookSwipe();
+    }, { passive: true });
+
+    function handleBookSwipe() {
+      const diff = touchEndX - touchStartX;
+      if (diff < -50) {
+        nextBookPage(); // Swiped left -> next
+      } else if (diff > 50) {
+        prevBookPage(); // Swiped right -> prev
       }
     }
 
@@ -1308,21 +1468,19 @@
 
     function playToneAudio(toneNum, pinyin, char, desc) {
       const feedback = document.getElementById('toneFeedback');
-      feedback.innerHTML = `<span class="text-amber-400 font-bold">${char} (${pinyin})</span>: ${desc}`;
+      if (feedback) {
+        feedback.innerHTML = `<span class="text-amber-400 font-bold">${char} (${pinyin})</span>: ${desc}`;
+      }
 
-      // Try SpeechSynthesis first if Chinese voice exists
-      let spoke = false;
       if ('speechSynthesis' in window) {
         try {
           const utterance = new SpeechSynthesisUtterance(char);
           utterance.lang = 'zh-CN';
           utterance.rate = 0.85;
           speechSynthesis.speak(utterance);
-          spoke = true;
         } catch(e) {}
       }
 
-      // Synthesize realistic pitch contour using Web Audio API
       try {
         const ctx = getAudioContext();
         const osc = ctx.createOscillator();
@@ -1332,22 +1490,17 @@
         const now = ctx.currentTime;
         const duration = 0.65;
 
-        // Base frequency ~220Hz
         if (toneNum === 1) {
-          // 1st tone: High flat 55
           osc.frequency.setValueAtTime(330, now);
           osc.frequency.setValueAtTime(330, now + duration);
         } else if (toneNum === 2) {
-          // 2nd tone: Rising 35
           osc.frequency.setValueAtTime(240, now);
           osc.frequency.linearRampToValueAtTime(350, now + duration);
         } else if (toneNum === 3) {
-          // 3rd tone: Dipping 214
           osc.frequency.setValueAtTime(220, now);
           osc.frequency.linearRampToValueAtTime(170, now + duration * 0.4);
           osc.frequency.linearRampToValueAtTime(280, now + duration);
         } else if (toneNum === 4) {
-          // 4th tone: Falling 51
           osc.frequency.setValueAtTime(360, now);
           osc.frequency.exponentialRampToValueAtTime(170, now + duration);
         }
@@ -1375,7 +1528,6 @@
     const modalIcon = document.getElementById('modalIcon');
     const modalBody = document.getElementById('modalBody');
 
-    // Interactive Flashcard State
     let flashcardIndex = 0;
     const flashcardsData = [
       { char: "朋友", pinyin: "péng you", meaning: "Friend", example: "Julie 是我非常好的朋友 (Julie is my very good friend)." },
@@ -1436,37 +1588,6 @@
             </div>
           </div>
         `;
-      } else if (type === 'radicals') {
-        modalIcon.innerText = "📖";
-        modalTitle.innerText = "The Essential Radicals Codex";
-        modalSubtitle.innerText = "50 Radicals That Build Chinese Characters";
-        modalBody.innerHTML = `
-          <div class="space-y-3">
-            <p class="text-xs text-slate-300">Radicals give the semantic clue to what a character means:</p>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                <span class="font-chinese text-xl text-amber-400">氵</span>
-                <strong class="text-white">三点水 (Water)</strong>
-                <p class="text-[10px] text-slate-400">Found in 江 (river), 海 (ocean), 洗 (wash).</p>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                <span class="font-chinese text-xl text-rose-400">心 / 忄</span>
-                <strong class="text-white">心字底 (Heart/Mind)</strong>
-                <p class="text-[10px] text-slate-400">Found in 想 (think), 忙 (busy), 忆 (memory).</p>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                <span class="font-chinese text-xl text-emerald-400">艹</span>
-                <strong class="text-white">草字头 (Grass/Plants)</strong>
-                <p class="text-[10px] text-slate-400">Found in 茶 (tea), 花 (flower), 菜 (vegetable).</p>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-                <span class="font-chinese text-xl text-cyan-400">言 / 讠</span>
-                <strong class="text-white">言字旁 (Speech/Words)</strong>
-                <p class="text-[10px] text-slate-400">Found in 话 (speech), 语 (language), 说 (speak).</p>
-              </div>
-            </div>
-          </div>
-        `;
       } else if (type === 'dialogue') {
         modalIcon.innerText = "🗣️";
         modalTitle.innerText = "Situational Dialogue: Language & Friendship";
@@ -1513,7 +1634,7 @@
       } else if (type === 'audio_course') {
         modalIcon.innerText = "🎙️";
         modalTitle.innerText = "Pimsleur & Native Audio Listening Syllabus";
-        modalSubtitle.innerText = "Auditory Spaced Repetition for Conversational Ease";
+        modalSubtitle.innerText = "Spaced Repetition Audio Tracks from Purchase 5";
         modalBody.innerHTML = `
           <div class="space-y-3 text-xs text-slate-300">
             <p>
@@ -1542,6 +1663,11 @@
                 <span class="text-rose-400 font-mono text-[10px]">Level 3</span>
               </div>
             </div>
+            <div class="pt-2">
+              <a href="https://drive.google.com/drive/folders/126kvhSFk0kOE4IFrGIg4Jes96LUUR_md" target="_blank" class="block w-full py-2.5 rounded-lg bg-amber-400 text-slate-950 font-bold text-center uppercase tracking-wider text-xs">
+                Open Drive Audio Files Folder →
+              </a>
+            </div>
           </div>
         `;
       }
@@ -1557,7 +1683,6 @@
             <span class="text-[10px] text-amber-400">Tap card to flip</span>
           </div>
 
-          <!-- Flip Card Container -->
           <div 
             id="interactiveCard"
             onclick="toggleCardFlip()" 
@@ -1575,7 +1700,6 @@
             </div>
           </div>
 
-          <!-- Controls -->
           <div class="flex items-center justify-between pt-2">
             <button onclick="prevFlashcard()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1 cursor-pointer">
               ← Previous
@@ -1692,7 +1816,6 @@
       document.getElementById('chapterQuote').innerText = c.quote;
       document.getElementById('chapterPageNum').innerText = `${c.num} / 7`;
 
-      // Update button styles
       for (let i = 1; i <= 7; i++) {
         const btn = document.getElementById(`tab-${i}`);
         if (i === c.num) {
@@ -1755,7 +1878,6 @@
 
       document.getElementById('wishMessage').classList.remove('hidden');
 
-      // Trigger massive confetti celebration
       triggerCelebrationConfetti();
       setTimeout(triggerCelebrationConfetti, 400);
       setTimeout(triggerCelebrationConfetti, 800);
@@ -1795,34 +1917,34 @@
     }
 
     const happyBirthdayNotes = [
-      { f: 261.63, d: 0.4 }, // C4
-      { f: 261.63, d: 0.4 }, // C4
-      { f: 293.66, d: 0.8 }, // D4
-      { f: 261.63, d: 0.8 }, // C4
-      { f: 349.23, d: 0.8 }, // F4
-      { f: 329.63, d: 1.4 }, // E4
+      { f: 261.63, d: 0.4 },
+      { f: 261.63, d: 0.4 },
+      { f: 293.66, d: 0.8 },
+      { f: 261.63, d: 0.8 },
+      { f: 349.23, d: 0.8 },
+      { f: 329.63, d: 1.4 },
 
-      { f: 261.63, d: 0.4 }, // C4
-      { f: 261.63, d: 0.4 }, // C4
-      { f: 293.66, d: 0.8 }, // D4
-      { f: 261.63, d: 0.8 }, // C4
-      { f: 392.00, d: 0.8 }, // G4
-      { f: 349.23, d: 1.4 }, // F4
+      { f: 261.63, d: 0.4 },
+      { f: 261.63, d: 0.4 },
+      { f: 293.66, d: 0.8 },
+      { f: 261.63, d: 0.8 },
+      { f: 392.00, d: 0.8 },
+      { f: 349.23, d: 1.4 },
 
-      { f: 261.63, d: 0.4 }, // C4
-      { f: 261.63, d: 0.4 }, // C4
-      { f: 523.25, d: 0.8 }, // C5
-      { f: 440.00, d: 0.8 }, // A4
-      { f: 349.23, d: 0.8 }, // F4
-      { f: 329.63, d: 0.8 }, // E4
-      { f: 293.66, d: 1.2 }, // D4
+      { f: 261.63, d: 0.4 },
+      { f: 261.63, d: 0.4 },
+      { f: 523.25, d: 0.8 },
+      { f: 440.00, d: 0.8 },
+      { f: 349.23, d: 0.8 },
+      { f: 329.63, d: 0.8 },
+      { f: 293.66, d: 1.2 },
 
-      { f: 466.16, d: 0.4 }, // Bb4
-      { f: 466.16, d: 0.4 }, // Bb4
-      { f: 440.00, d: 0.8 }, // A4
-      { f: 349.23, d: 0.8 }, // F4
-      { f: 392.00, d: 0.8 }, // G4
-      { f: 349.23, d: 2.0 }, // F4
+      { f: 466.16, d: 0.4 },
+      { f: 466.16, d: 0.4 },
+      { f: 440.00, d: 0.8 },
+      { f: 349.23, d: 0.8 },
+      { f: 392.00, d: 0.8 },
+      { f: 349.23, d: 2.0 },
     ];
 
     function toggleGuitarSerenade() {
