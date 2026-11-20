@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chapter 19: The Story of Julie ✨ | Happy 19th Birthday!</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+  <!-- Google Fonts: Inter, Cinzel, Playfair Display, Ma Shan Zheng (Chinese Calligraphy), Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Ma+Shan+Zheng&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#060a17',
+            sapphire: {
+              950: '#060e24',
+              900: '#0b1940',
+              800: '#112966',
+              700: '#193f9c',
+              600: '#2359d4',
+              500: '#3875f6',
+              400: '#6094fb',
+              300: '#8eb3fc',
+              200: '#bfd5fd',
+              100: '#e1ecfe',
+              50: '#f0f5ff',
+            },
+            gold: {
+              300: '#fde047',
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            chinese: ['"Ma Shan Zheng"', 'serif'],
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.04)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #060a17;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060a17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #193f9c;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3875f6;
+    }
+
+    .glass-card {
+      background: rgba(11, 25, 64, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(96, 148, 251, 0.22);
+    }
+    
+    .glass-card-hover {
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96, 148, 251, 0.5);
+      box-shadow: 0 16px 36px -10px rgba(35, 89, 212, 0.4);
+    }
+
+    .book-cover {
+      background: linear-gradient(135deg, #0d1b3e 0%, #071129 100%);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(250, 204, 21, 0.25);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fef08a 0%, #facc15 50%, #ca8a04 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .blue-gradient-text {
+      background: linear-gradient(135deg, #e1ecfe 0%, #8eb3fc 50%, #3875f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Candle flame animation */
+    .flame {
+      animation: flicker 1.4s infinite ease-in-out alternate;
+    }
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+      50% { transform: scale(1.15) rotate(1.5deg); opacity: 1; }
+      100% { transform: scale(0.95) rotate(-0.5deg); opacity: 0.85; }
+    }
+
+    .flame-smoke {
+      display: none;
+      animation: smoke 2s forwards ease-out;
+    }
+    @keyframes smoke {
+      0% { opacity: 0.8; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-40px) scale(2.5); }
+    }
+
+    /* Hide scrollbar for tabs */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Interactive Flashcard 3D flip */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-sapphire-500 selection:text-white">
+
+  <!-- ============================================================== -->
+  <!-- STARFIELD BACKGROUND CANVAS                                    -->
+  <!-- ============================================================== -->
+  <canvas id="starfield" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Glow Blobs -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-sapphire-600/15 rounded-full blur-[120px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-10 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+
+  <!-- ============================================================== -->
+  <!-- STICKY TOP AUDIO & NAV BAR                                     -->
+  <!-- ============================================================== -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-midnight/80 border-b border-sapphire-500/20 px-4 py-2.5 transition-all">
+    <div class="max-w-5xl mx-auto flex items-center justify-between gap-3">
+      
+      <!-- Brand & Name -->
+      <a href="#hero" class="flex items-center gap-2 text-white font-serif font-bold text-sm sm:text-base tracking-wide hover:opacity-90">
+        <span class="w-7 h-7 rounded-lg bg-sapphire-600/40 border border-sapphire-400/50 flex items-center justify-center text-xs">✨</span>
+        <span class="truncate">Chapter 19 <span class="text-sapphire-300 font-sans font-normal text-xs sm:text-sm">| Julie's Story</span></span>
+      </a>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2">
+        <!-- Audio Serenade Button -->
+        <button 
+          id="musicToggleBtn" 
+          onclick="toggleGuitarSerenade()" 
+          class="px-3 py-1.5 rounded-full bg-sapphire-900/80 hover:bg-sapphire-800 border border-sapphire-400/40 text-xs text-amber-300 font-medium flex items-center gap-1.5 transition-all shadow-md active:scale-95"
+          title="Play Acoustic Birthday Serenade"
+        >
+          <span id="musicIcon">🎸</span>
+          <span id="musicText" class="hidden xs:inline sm:inline">Play Melody</span>
+        </button>
+
+        <!-- Confetti Trigger -->
+        <button 
+          onclick="triggerCelebrationConfetti()" 
+          class="w-8 h-8 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 flex items-center justify-center text-xs transition-transform active:scale-90"
+          title="Celebrate with Confetti"
+        >
+          🎉
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- MAIN CONTAINER                                                 -->
+  <!-- ============================================================== -->
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-16 sm:space-y-24">
+
+    <!-- ============================================================== -->
+    <!-- HERO SECTION                                                   -->
+    <!-- ============================================================== -->
+    <section id="hero" class="text-center space-y-6 pt-4 sm:pt-8">
+      
+      <!-- Crown / Birthday Pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sapphire-950/80 border border-sapphire-400/40 text-xs sm:text-sm text-sapphire-200 shadow-xl backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <span class="font-mono uppercase tracking-wider text-[11px] sm:text-xs">November 23, 2026 • Chapter 19</span>
+        <span class="text-amber-300">👑</span>
+      </div>
+
+      <!-- Main Headline -->
+      <div class="space-y-3">
+        <h1 class="text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight">
+          <span class="block text-white font-serif">Happy 19th Birthday,</span>
+          <span class="block gold-gradient-text font-serif italic drop-shadow-lg">Julie (Margaret)!</span>
+        </h1>
+        
+        <p class="max-w-2xl mx-auto text-slate-300 text-xs sm:text-base leading-relaxed px-2 font-normal">
+          Curly, fluffy, baker of cakes, acoustic guitarist, lover of stories and cinema, and the most supportive friend across the world. Here is your personalized virtual universe.
+        </p>
+      </div>
+
+      <!-- Live Birthday Countdown Card -->
+      <div class="max-w-md mx-auto p-4 sm:p-5 rounded-2xl glass-card border-sapphire-400/30 shadow-2xl space-y-3">
+        <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-b border-sapphire-500/20 pb-2">
+          <span class="flex items-center gap-1.5 text-sapphire-300">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i> Live Birthday Countdown
+          </span>
+          <span id="countdownStatus" class="text-amber-400 font-bold">Target: Nov 23, 2026</span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="p-2 sm:p-3 rounded-xl bg-sapphire-950/70 border border-sapphire-500/20">
+            <div id="days" class="text-xl sm:text-3xl font-mono font-black text-white">00</div>
+            <div class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400">Days</div>
+          </div>
+          <div class="p-2 sm:p-3 rounded-xl bg-sapphire-950/70 border border-sapphire-500/20">
+            <div id="hours" class="text-xl sm:text-3xl font-mono font-black text-white">00</div>
+            <div class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400">Hours</div>
+          </div>
+          <div class="p-2 sm:p-3 rounded-xl bg-sapphire-950/70 border border-sapphire-500/20">
+            <div id="minutes" class="text-xl sm:text-3xl font-mono font-black text-white">00</div>
+            <div class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400">Mins</div>
+          </div>
+          <div class="p-2 sm:p-3 rounded-xl bg-sapphire-950/70 border border-sapphire-500/20">
+            <div id="seconds" class="text-xl sm:text-3xl font-mono font-black text-amber-400">00</div>
+            <div class="text-[9px] sm:text-[10px] uppercase tracking-wider text-slate-400">Secs</div>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-400 italic">
+          "Julie: 'I'll turn 19 on November 23rd!' — Chat Record, March 17, 2026"
+        </p>
+      </div>
+
+      <!-- Quick Nav Buttons for Phone -->
+      <div class="flex flex-wrap items-center justify-center gap-2 pt-2 text-xs">
+        <a href="#mandarin-book" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500/20 to-amber-500/20 hover:from-rose-500/30 hover:to-amber-500/30 border border-rose-400/30 text-rose-200 font-semibold flex items-center gap-1.5 transition-all shadow-md">
+          <span>📖 The Book of Mandarin</span>
+        </a>
+        <a href="#julie-codex" class="px-4 py-2 rounded-xl bg-sapphire-900/60 hover:bg-sapphire-800/80 border border-sapphire-400/30 text-slate-200 font-semibold flex items-center gap-1.5 transition-all">
+          <span>💫 The Julie Codex</span>
+        </a>
+        <a href="#cake-section" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/30 text-amber-300 font-semibold flex items-center gap-1.5 transition-all">
+          <span>🎂 Make a Wish</span>
+        </a>
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- THE JULIE CODEX: OFFICIAL TRAITS FROM THE CHAT RECORDS         -->
+    <!-- ============================================================== -->
+    <section id="julie-codex" class="space-y-6 scroll-mt-20">
+      
+      <div class="text-center space-y-1.5">
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-2">
+          <span>The Julie Codex</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-sapphire-500/20 text-sapphire-300 font-sans border border-sapphire-500/30">Official Profile</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">
+          Everything that makes Margaret authentic, beloved, and one-of-a-kind.
+        </p>
+      </div>
+
+      <!-- 8 Real Trait Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Trait 1: Curly & Fluffy -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-amber-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">💅</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">Name Lore</span>
+          </div>
+          <h3 class="font-bold text-white text-base">Curly & Fluffy</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            When asked about her name meaning: <em class="text-amber-200">"Julie means curly, fluffy hehe 💅... I have wavy hair, but it sometimes curls."</em>
+          </p>
+        </div>
+
+        <!-- Trait 2: The Passionate Baker -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-rose-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🍰</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-300 border border-rose-500/20">Baking</span>
+          </div>
+          <h3 class="font-bold text-white text-base">The Cake Artisan</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Making homemade desserts from scratch: <em class="text-rose-200">"I'm baking a cake 💆‍♀️ ... I hope it will be delicious"</em>. Crafting sweets with patience.
+          </p>
+        </div>
+
+        <!-- Trait 3: Guitar Virtuoso -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-sapphire-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🎸</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sapphire-500/10 text-sapphire-300 border border-sapphire-500/20">Music</span>
+          </div>
+          <h3 class="font-bold text-white text-base">Guitar Virtuoso</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Her favorite musical instrument: <em class="text-sapphire-200">"Guitar most likely, I know how to play it 💫"</em>. A natural with acoustic rhythm.
+          </p>
+        </div>
+
+        <!-- Trait 4: Cinema & Cartoon Cinephile -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-purple-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🎬</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">Cinema</span>
+          </div>
+          <h3 class="font-bold text-white text-base">Odyssey & Disney</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Loved watching the cinema release of <em class="text-purple-200">Odyssey</em>, and treasures classic Disney animation as a <em class="text-purple-200">"masterpiece of cinematography 💅"</em>.
+          </p>
+        </div>
+
+        <!-- Trait 5: Polyglot Philosophy -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-emerald-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🌏</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Philosophy</span>
+          </div>
+          <h3 class="font-bold text-white text-base">The Polyglot Spirit</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Her language motto: <em class="text-emerald-200">"What motivated me most was the very possibility of learning to understand another language 💅"</em>.
+          </p>
+        </div>
+
+        <!-- Trait 6: The Bookstore Visionary -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-yellow-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">📚</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-300 border border-yellow-500/20">Vision</span>
+          </div>
+          <h3 class="font-bold text-white text-base">Bookstore Believer</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Cheering Sau's book: <em class="text-yellow-200">"In the future I want to see your book on the shelves of a bookstore 💅 ... It's inspiring 🫂"</em>.
+          </p>
+        </div>
+
+        <!-- Trait 7: Mulukhiya Explorer -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-cyan-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🍲</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Travel</span>
+          </div>
+          <h3 class="font-bold text-white text-base">Sharm el Sheikh</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Vacationed in Egypt: <em class="text-cyan-200">"I tried a very tasty mulukhiya, it’s a very tasty soup made from leaves... unforgettable place and emotions."</em>
+          </p>
+        </div>
+
+        <!-- Trait 8: Chief Beta Tester #1 -->
+        <div class="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover space-y-2.5 border-sapphire-400/50 bg-sapphire-950/80">
+          <div class="flex items-center justify-between">
+            <span class="text-2xl">🚀</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sapphire-500/20 text-sapphire-300 border border-sapphire-500/30">Tester #1</span>
+          </div>
+          <h3 class="font-bold text-white text-base">Chief Beta Tester</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            <em class="text-slate-100">"I'm always happy to help you with website testing Sau 🤍"</em>. Tested 8+ projects, caught audio bugs, VPN crashes & typos.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- CENTERPIECE: THE INTERACTIVE BOOK OF MANDARIN (朱莉的中文之书) -->
+    <!-- ============================================================== -->
+    <section id="mandarin-book" class="space-y-6 scroll-mt-20">
+      
+      <!-- Book Header Banner -->
+      <div class="text-center space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono uppercase tracking-widest">
+          <span>🇨🇳 朱莉的中文之书</span>
+          <span>•</span>
+          <span>The Book of Mandarin</span>
+        </div>
+        <h2 class="font-serif text-2xl sm:text-4xl font-bold text-white">
+          Julie’s Grimoire of Chinese
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+          "What motivated me most was the very possibility of learning to understand another language 💅" — Here is your complete study companion, from tone mechanics to classic idioms.
+        </p>
+      </div>
+
+      <!-- The Virtual Book Outer Container -->
+      <div class="book-cover rounded-3xl border-2 border-amber-400/30 shadow-2xl overflow-hidden p-4 sm:p-8 space-y-6 relative">
+        
+        <!-- Subtle Calligraphy Watermark -->
+        <div class="absolute right-4 bottom-4 text-8xl sm:text-9xl font-chinese text-amber-400/5 select-none pointer-events-none">
+          学海无涯
+        </div>
+
+        <!-- Book Navigation Chapter Tabs -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar justify-start sm:justify-center border-b border-amber-400/20">
+          <button onclick="switchBookChapter(1)" id="book-tab-1" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-400 text-slate-950 shrink-0 shadow-lg shadow-amber-400/20 flex items-center gap-1.5 cursor-pointer">
+            <span>📜</span> Chapter I: The Essence
+          </button>
+          <button onclick="switchBookChapter(2)" id="book-tab-2" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer">
+            <span>🌱</span> Chapter II: Foundations (HSK 1-2)
+          </button>
+          <button onclick="switchBookChapter(3)" id="book-tab-3" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer">
+            <span>🖌️</span> Chapter III: StrokeFlow & Dialogue
+          </button>
+          <button onclick="switchBookChapter(4)" id="book-tab-4" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer">
+            <span>🐉</span> Chapter IV: Chengyu & Mastery
+          </button>
+        </div>
+
+        <!-- BOOK CHAPTER 1: THE ESSENCE OF MANDARIN -->
+        <div id="book-page-1" class="space-y-6 animate-fade-in">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-amber-400">Chapter I • 汉字之美</span>
+              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">The Architecture of Mandarin</h3>
+            </div>
+            <span class="text-xs px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/30 font-chinese text-sm">
+              声调与部首
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Chinese is not just an alphabet—it is a musical, visual language built upon <strong>four melodic tones</strong> and ancient <strong>pictographic radicals</strong>. Each tone gives the same syllable entirely different meanings!
+          </p>
+
+          <!-- Interactive 4 Tones Soundboard -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-sapphire-950/70 border border-sapphire-500/30 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="volume-2" class="w-4 h-4"></i> Interactive 4 Tones Soundboard (Test with 'Ma')
+              </span>
+              <span class="text-[10px] font-mono text-slate-400">Click each tone to listen!</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              
+              <!-- Tone 1 -->
+              <button onclick="playToneAudio(1, 'mā', '妈', 'Mother (High & Flat 55)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-emerald-500/40 text-left transition-all active:scale-95 group cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg font-bold text-emerald-400">1st: mā</span>
+                  <span class="text-xs text-emerald-300">ˉ</span>
+                </div>
+                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">妈 (Mother)</div>
+                <div class="text-[10px] text-slate-400">High, flat pitch 55</div>
+              </button>
+
+              <!-- Tone 2 -->
+              <button onclick="playToneAudio(2, 'má', '麻', 'Hemp (Rising 35)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-cyan-500/40 text-left transition-all active:scale-95 group cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg font-bold text-cyan-400">2nd: má</span>
+                  <span class="text-xs text-cyan-300">ˊ</span>
+                </div>
+                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">麻 (Hemp)</div>
+                <div class="text-[10px] text-slate-400">Rising like a question 35</div>
+              </button>
+
+              <!-- Tone 3 -->
+              <button onclick="playToneAudio(3, 'mǎ', '马', 'Horse (Dipping 214)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-amber-500/40 text-left transition-all active:scale-95 group cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg font-bold text-amber-400">3rd: mǎ</span>
+                  <span class="text-xs text-amber-300">ˇ</span>
+                </div>
+                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">马 (Horse)</div>
+                <div class="text-[10px] text-slate-400">Dips low then rises 214</div>
+              </button>
+
+              <!-- Tone 4 -->
+              <button onclick="playToneAudio(4, 'mà', '骂', 'Scold (Falling 51)')" class="p-3 rounded-xl bg-slate-900/90 hover:bg-sapphire-900/80 border border-rose-500/40 text-left transition-all active:scale-95 group cursor-pointer">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg font-bold text-rose-400">4th: mà</span>
+                  <span class="text-xs text-rose-300">ˋ</span>
+                </div>
+                <div class="text-xl font-chinese text-white group-hover:text-amber-300 pt-1">骂 (Scold)</div>
+                <div class="text-[10px] text-slate-400">Sharp falling command 51</div>
+              </button>
+
+            </div>
+
+            <!-- Feedback ticker -->
+            <div id="toneFeedback" class="text-xs text-center text-slate-300 italic pt-1">
+              Tap any tone above to hear the Web Audio synthesizer pronounce the acoustic contour!
+            </div>
+          </div>
+
+          <!-- The Magic of Chinese Characters (Ideograms) -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="text-amber-300 font-chinese text-2xl font-bold">日 + 月 = 明</div>
+              <div class="font-bold text-xs text-white">Sun + Moon = Bright (Míng)</div>
+              <p class="text-[11px] text-slate-400">When the two celestial luminaries stand together, you get radiant brightness.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="text-amber-300 font-chinese text-2xl font-bold">木 + 木 = 林</div>
+              <div class="font-bold text-xs text-white">Tree + Tree = Woods (Lín)</div>
+              <p class="text-[11px] text-slate-400">Two trees form a woods. Add a third (森) and you get a dense forest.</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="text-amber-300 font-chinese text-2xl font-bold">女 + 子 = 好</div>
+              <div class="font-bold text-xs text-white">Woman + Child = Good (Hǎo)</div>
+              <p class="text-[11px] text-slate-400">The mother holding her child represents harmony and goodness.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- BOOK CHAPTER 2: FOUNDATIONS (HSK 1-2) -->
+        <div id="book-page-2" class="space-y-6 hidden animate-fade-in">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-emerald-400">Chapter II • 基础之石</span>
+              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">The Foundation Grimoire (HSK 1 - 2)</h3>
+            </div>
+            <span class="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">
+              Beginner Mastery
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Every great journey begins with the first step. Here are complete study guides, flashcard decks, and pronunciation audio drills to build unbreakable fundamentals.
+          </p>
+
+          <!-- 3 Big Attractive Resource Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <!-- Resource Card 1: Pinyin Masterclass -->
+            <div class="p-5 rounded-2xl bg-slate-900/80 border-2 border-emerald-500/30 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-4 shadow-xl">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-2xl">🎧</span>
+                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Pinyin + Audio</span>
+                </div>
+                <h4 class="font-bold text-white text-base">Comprehensive Pinyin & Audio Drills</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  21 initials, 36 finals, tone rules, and acoustic drills to eradicate accent friction right from the beginning.
+                </p>
+              </div>
+
+              <!-- Big Attractive Action Button -->
+              <button 
+                onclick="openStudyModal('pinyin')" 
+                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
+              >
+                <span>🔊 Open Audio Drills</span>
+                <i data-lucide="headphones" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Resource Card 2: HSK 1-2 Flashcards -->
+            <div class="p-5 rounded-2xl bg-slate-900/80 border-2 border-sapphire-500/30 hover:border-sapphire-400 transition-all flex flex-col justify-between space-y-4 shadow-xl">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-2xl">🎴</span>
+                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-sapphire-500/20 text-sapphire-300">300 Vocabulary</span>
+                </div>
+                <h4 class="font-bold text-white text-base">Interactive HSK 1-2 Flashcard Deck</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Flip through essential high-frequency characters, pinyin, and example sentences with instant interactive flashcards.
+                </p>
+              </div>
+
+              <!-- Big Attractive Action Button -->
+              <button 
+                onclick="openStudyModal('flashcards')" 
+                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-sapphire-500 to-indigo-600 hover:from-sapphire-400 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-sapphire-500/25 flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
+              >
+                <span>🎴 Launch Flashcards</span>
+                <i data-lucide="layers" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Resource Card 3: Radical & Stroke Guide -->
+            <div class="p-5 rounded-2xl bg-slate-900/80 border-2 border-amber-500/30 hover:border-amber-400 transition-all flex flex-col justify-between space-y-4 shadow-xl">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-2xl">📄</span>
+                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">PDF Guide</span>
+                </div>
+                <h4 class="font-bold text-white text-base">The Radical & Stroke Order Manual</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Learn the 8 basic strokes (横 竖 撇 捺 点 提 钩 折) and the top 50 radicals that decode 80% of everyday Chinese.
+                </p>
+              </div>
+
+              <!-- Big Attractive Action Button -->
+              <button 
+                onclick="openStudyModal('radicals')" 
+                class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-400/25 flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
+              >
+                <span>📖 View Radical Codex</span>
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BOOK CHAPTER 3: STROKEFLOW & DIALOGUE (HSK 3-4) -->
+        <div id="book-page-3" class="space-y-6 hidden animate-fade-in">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-amber-400">Chapter III • 笔画与对话</span>
+              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">StrokeFlow & Intermediate Dialogues</h3>
+            </div>
+            <span class="text-xs px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono">
+              Intermediate Fluency
+            </span>
+          </div>
+
+          <!-- CROWN JEWEL: STROKEFLOW PROMINENT SPOTLIGHT -->
+          <div class="p-6 rounded-2xl bg-gradient-to-br from-sapphire-900/90 via-midnight to-slate-900 border-2 border-amber-400 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-2xl shadow-xl shrink-0">
+                🖌️
+              </div>
+              <div class="space-y-2">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="font-bold text-white text-xl">StrokeFlow</h4>
+                  <span class="text-[10px] uppercase font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950">Official Featured App</span>
+                  <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-sapphire-500/30 text-sapphire-200">Built by Sau</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
+                  The interactive stroke order writing app hosted on GitHub. Practice writing every Chinese character with guided animations, stroke counters, and instant feedback. Julie tested and approved it in April!
+                </p>
+                <div class="text-[11px] text-amber-300 italic">
+                  Julie: "Wow, you do them so quickly hehe... Thank you for your support 🤍"
+                </div>
+              </div>
+            </div>
+
+            <a 
+              href="https://rswarke1972-art.github.io/StrokeFlow/" 
+              target="_blank"
+              class="w-full md:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-3 transition-transform transform hover:scale-105 shadow-xl shadow-amber-400/30 shrink-0 cursor-pointer"
+            >
+              <span>🚀 Launch StrokeFlow</span>
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+
+          </div>
+
+          <!-- Intermediate Resources Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            
+            <!-- Conversational Situations -->
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-700/80 space-y-3 flex flex-col justify-between">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xl">🗣️</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">50 Dialogues</span>
+                </div>
+                <h5 class="font-bold text-white text-sm">Real-Life Conversational Dialogues</h5>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Ordering bubble tea, booking trains, discussing hobbies, and casual chatting with friends in modern spoken Mandarin.
+                </p>
+              </div>
+
+              <button 
+                onclick="openStudyModal('dialogue')" 
+                class="w-full py-2.5 px-4 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+              >
+                <span>💬 View Dialogue Script</span>
+                <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <!-- Graded Reading Stories -->
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-700/80 space-y-3 flex flex-col justify-between">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xl">📖</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">Storybook</span>
+                </div>
+                <h5 class="font-bold text-white text-sm">Graded Fiction Stories (HSK 3-4)</h5>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Carefully written short stories with pinyin annotations and English glosses to build reading endurance naturally.
+                </p>
+              </div>
+
+              <button 
+                onclick="openStudyModal('stories')" 
+                class="w-full py-2.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+              >
+                <span>📚 Read Story Excerpt</span>
+                <i data-lucide="book" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BOOK CHAPTER 4: CHENGYU & ADVANCED MASTERY -->
+        <div id="book-page-4" class="space-y-6 hidden animate-fade-in">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-700/60 pb-3">
+            <div>
+              <span class="text-xs font-mono uppercase tracking-wider text-rose-400">Chapter IV • 成语宝库</span>
+              <h3 class="font-serif text-xl sm:text-2xl font-bold text-white">The Treasury of Chengyu & Mastery</h3>
+            </div>
+            <span class="text-xs px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-mono">
+              HSK 4+ & Culture
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Chengyu (成语) are 4-character idiomatic expressions distilled from millennia of history and literature. Using a single chengyu conveys an entire philosophical worldview.
+          </p>
+
+          <!-- 4 Curated Chengyu Cards Dedicated to Julie -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            
+            <!-- Chengyu 1: 坚持不懈 -->
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-rose-500/30 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-chinese text-rose-300 font-bold">坚持不懈</span>
+                <span class="text-[10px] font-mono text-slate-400">jiān chí bù xiè</span>
+              </div>
+              <div class="font-bold text-xs text-white">Persevere Without Giving Up</div>
+              <p class="text-[11px] text-slate-300">
+                Describes relentless determination in mastering languages, music, and skills. Dedicated to Julie's guitar & language dedication.
+              </p>
+            </div>
+
+            <!-- Chengyu 2: 一见如故 -->
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-amber-500/30 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-chinese text-amber-300 font-bold">一见如故</span>
+                <span class="text-[10px] font-mono text-slate-400">yī jiàn rú gù</span>
+              </div>
+              <div class="font-bold text-xs text-white">Friends Like Old Times From First Meeting</div>
+              <p class="text-[11px] text-slate-300">
+                To connect instantly as if you have known each other for years. Exactly how our friendship felt from day one!
+              </p>
+            </div>
+
+            <!-- Chengyu 3: 锦上添花 -->
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-chinese text-emerald-300 font-bold">锦上添花</span>
+                <span class="text-[10px] font-mono text-slate-400">jǐn shàng tiān huā</span>
+              </div>
+              <div class="font-bold text-xs text-white">Adding Flowers to Brocade Embroidery</div>
+              <p class="text-[11px] text-slate-300">
+                To make something that is already splendid even more magnificent. May your 19th year bring endless beauty to your life!
+              </p>
+            </div>
+
+            <!-- Chengyu 4: 志同道合 -->
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-sapphire-500/30 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-chinese text-sapphire-300 font-bold">志同道合</span>
+                <span class="text-[10px] font-mono text-slate-400">zhì tóng dào hé</span>
+              </div>
+              <div class="font-bold text-xs text-white">Sharing Similar Ideals & Paths</div>
+              <p class="text-[11px] text-slate-300">
+                Two people who walk parallel paths of creativity, testing, book writing, and mutual encouragement.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Big Action Button for Audio Comprehension -->
+          <button 
+            onclick="openStudyModal('audio_course')" 
+            class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-xl flex items-center justify-center gap-2 transition-transform active:scale-95 cursor-pointer"
+          >
+            <span>🎙️ Access Advanced Audio Comprehension & Pimsleur Syllabus</span>
+            <i data-lucide="radio" class="w-4 h-4"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- INTERACTIVE 7 CHAPTERS OF FRIENDSHIP (TIMELINE)                -->
+    <!-- ============================================================== -->
+    <section class="space-y-6">
+      
+      <div class="text-center space-y-1.5">
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-2">
+          <span>The 7 Chapters of 2026</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-sans border border-amber-500/30">Timeline</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          Our shared journey across coding, exams, holidays, and milestones.
+        </p>
+      </div>
+
+      <!-- Chapter Tabs (Horizontally scrollable on mobile) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar justify-start sm:justify-center">
+        <button onclick="switchChapter(1)" id="tab-1" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-600 text-white shrink-0 cursor-pointer">Ch. I: Genesis</button>
+        <button onclick="switchChapter(2)" id="tab-2" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. II: First Game</button>
+        <button onclick="switchChapter(3)" id="tab-3" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. III: Languages</button>
+        <button onclick="switchChapter(4)" id="tab-4" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. IV: Bondly</button>
+        <button onclick="switchChapter(5)" id="tab-5" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. V: Egypt</button>
+        <button onclick="switchChapter(6)" id="tab-6" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. VI: The Book</button>
+        <button onclick="switchChapter(7)" id="tab-7" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer">Ch. VII: Accurator</button>
+      </div>
+
+      <!-- Chapter Content Panel -->
+      <div class="p-6 sm:p-8 rounded-3xl glass-card border border-sapphire-400/30 shadow-2xl min-h-[220px] flex flex-col justify-between" id="chapterCard">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span id="chapterDate" class="text-xs font-mono font-bold text-amber-400">January 29, 2026</span>
+            <span id="chapterBadge" class="text-[10px] px-2.5 py-1 rounded-full bg-sapphire-500/20 text-sapphire-300 border border-sapphire-500/30 font-bold uppercase tracking-wider">How It Started</span>
+          </div>
+
+          <h3 id="chapterTitle" class="font-serif text-xl sm:text-2xl font-bold text-white">
+            Chapter I: The Genesis & The Language Exchange
+          </h3>
+
+          <p id="chapterStory" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            "You're julie from russia right? — Yesss, it's me)". That day, you changed the Instagram chat theme to Apple and Care. We talked about learning Mandarin Chinese, HSK levels, and Russian. It was the start of an unforgettable friendship.
+          </p>
+
+          <!-- Quote Block -->
+          <div class="p-3.5 rounded-xl bg-sapphire-950/60 border-l-4 border-amber-400 text-xs italic text-slate-200">
+            <span id="chapterQuote">"Oh, thanks for the advice! I'm learning Chinese with a tutor, so I'm already following the program ✨️"</span>
+          </div>
+        </div>
+
+        <!-- Next / Prev Controls -->
+        <div class="flex items-center justify-between pt-6 border-t border-slate-800/80 mt-6">
+          <button onclick="prevChapter()" class="text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i> Previous Chapter
+          </button>
+          <span id="chapterPageNum" class="text-xs font-mono text-sapphire-400">1 / 7</span>
+          <button onclick="nextChapter()" class="text-xs font-semibold text-sapphire-400 hover:text-sapphire-200 flex items-center gap-1.5 transition-colors cursor-pointer">
+            Next Chapter <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- THE HALL OF 8 CREATIONS: TESTED & APPROVED BY JULIE            -->
+    <!-- ============================================================== -->
+    <section class="space-y-6">
+      
+      <div class="text-center space-y-1.5">
+        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-2">
+          <span>The Julie Hall of Fame</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-sans border border-emerald-500/30">8 Projects</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          The projects you personally beta-tested, reviewed, and supported throughout 2026.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Project 1: StrokeFlow -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-amber-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🖌️</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300">April 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">StrokeFlow</h4>
+          <p class="text-[11px] text-slate-300">Chinese character writing tool.</p>
+          <p class="text-[10px] italic text-amber-300/90 pt-1">"Wow, you do them so quickly hehe... Thank you for your support 🤍"</p>
+        </div>
+
+        <!-- Project 2: Bondly -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-sapphire-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🌍</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sapphire-500/10 text-sapphire-300">May 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">Bondly</h4>
+          <p class="text-[11px] text-slate-300">Social networking platform.</p>
+          <p class="text-[10px] italic text-sapphire-300/90 pt-1">"Wooow I really like the design... I'm always happy to help with testing 🤍"</p>
+        </div>
+
+        <!-- Project 3: LangoSphere -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-emerald-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🌐</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300">March 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">LangoSphere</h4>
+          <p class="text-[11px] text-slate-300">Language learning portal.</p>
+          <p class="text-[10px] italic text-emerald-300/90 pt-1">"I really like that you included Slavic languages, that's great 😄"</p>
+        </div>
+
+        <!-- Project 4: LexiVerse -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-purple-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">📖</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-300">Feb 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">LexiVerse</h4>
+          <p class="text-[11px] text-slate-300">Vocabulary in stories.</p>
+          <p class="text-[10px] italic text-purple-300/90 pt-1">"Very interesting... caught the mobile phone audio synthesis bug! (*･ω･*)"</p>
+        </div>
+
+        <!-- Project 5: Web Calculator -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-cyan-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🧮</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-300">March 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">Web Calculator</h4>
+          <p class="text-[11px] text-slate-300">Interactive web tool.</p>
+          <p class="text-[10px] italic text-cyan-300/90 pt-1">"This is cool, actually 🫶... Wow, I really like the way it works"</p>
+        </div>
+
+        <!-- Project 6: First Game -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-pink-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🎮</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-pink-500/10 text-pink-300">Feb 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">The First Game</h4>
+          <p class="text-[11px] text-slate-300">First HTML/JS web game.</p>
+          <p class="text-[10px] italic text-pink-300/90 pt-1">"it looks very beautiful... I'm always ready to test anything :)"</p>
+        </div>
+
+        <!-- Project 7: The Questions That Heal -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-yellow-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">📚</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-yellow-500/10 text-yellow-300">July 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">The Questions That Heal</h4>
+          <p class="text-[11px] text-slate-300">First published book.</p>
+          <p class="text-[10px] italic text-yellow-300/90 pt-1">"In the future I want to see your book on the shelves of a bookstore 💅"</p>
+        </div>
+
+        <!-- Project 8: Accurator -->
+        <div class="p-4 rounded-2xl glass-card glass-card-hover space-y-2 border-indigo-500/30">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🤖</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-300">Nov 2026</span>
+          </div>
+          <h4 class="font-bold text-white text-sm">Accurator</h4>
+          <p class="text-[11px] text-slate-300">Multi-model AI consensus.</p>
+          <p class="text-[10px] italic text-indigo-300/90 pt-1">"Ogre, this is a very good idea, I really like it ^^"</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- INTERACTIVE 19TH BIRTHDAY CAKE & MAKE A WISH                   -->
+    <!-- ============================================================== -->
+    <section id="cake-section" class="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl glass-card border border-sapphire-400/40 text-center space-y-6 shadow-2xl relative scroll-mt-20">
+      
+      <div class="space-y-2">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-amber-400">Interactive 19th Birthday Tradition</span>
+        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-white">Make a Wish & Blow the Candles</h3>
+        <p class="text-xs text-slate-300">
+          Close your eyes, make a silent wish for your 19th year, and tap the cake to blow out the candles!
+        </p>
+      </div>
+
+      <!-- Illustrated Birthday Cake -->
+      <div class="py-6 flex flex-col items-center justify-center">
+        <!-- Candles Row -->
+        <div class="flex items-end justify-center gap-3 mb-2" id="candlesRow">
+          <!-- 5 Candle Items -->
+          <div class="flex flex-col items-center candle-item">
+            <div class="w-3.5 h-6 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-lg shadow-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
+            <div class="w-2 h-7 rounded-sm bg-gradient-to-b from-blue-300 to-blue-500 border border-blue-400"></div>
+          </div>
+          <div class="flex flex-col items-center candle-item">
+            <div class="w-3.5 h-6 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-lg shadow-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
+            <div class="w-2 h-8 rounded-sm bg-gradient-to-b from-amber-300 to-amber-500 border border-amber-400"></div>
+          </div>
+          <!-- Center 19 Candle -->
+          <div class="flex flex-col items-center candle-item">
+            <div class="w-4 h-7 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-xl shadow-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
+            <div class="px-2 py-0.5 rounded bg-sapphire-600 border border-amber-400 text-white font-mono font-black text-xs shadow">19</div>
+          </div>
+          <div class="flex flex-col items-center candle-item">
+            <div class="w-3.5 h-6 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-lg shadow-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
+            <div class="w-2 h-8 rounded-sm bg-gradient-to-b from-amber-300 to-amber-500 border border-amber-400"></div>
+          </div>
+          <div class="flex flex-col items-center candle-item">
+            <div class="w-3.5 h-6 rounded-full bg-gradient-to-t from-orange-500 via-amber-300 to-yellow-100 flame shadow-lg shadow-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-slate-400 flame-smoke"></div>
+            <div class="w-2 h-7 rounded-sm bg-gradient-to-b from-blue-300 to-blue-500 border border-blue-400"></div>
+          </div>
+        </div>
+
+        <!-- Cake Tier 1 -->
+        <div class="w-44 h-12 rounded-t-2xl bg-gradient-to-r from-sapphire-500 via-indigo-400 to-sapphire-500 border-2 border-sapphire-300/50 shadow-md flex items-center justify-center">
+          <span class="text-[11px] font-serif font-bold text-white tracking-widest uppercase">Happy 19th Julie</span>
+        </div>
+        <!-- Cake Tier 2 -->
+        <div class="w-60 h-16 rounded-b-2xl bg-gradient-to-r from-sapphire-800 via-sapphire-700 to-sapphire-800 border-2 border-t-0 border-sapphire-400/40 shadow-xl flex items-center justify-around px-4">
+          <span class="text-xs">✨</span>
+          <span class="text-xs">🤍</span>
+          <span class="text-xs font-chinese text-amber-300 font-bold">快乐</span>
+          <span class="text-xs">🤍</span>
+          <span class="text-xs">✨</span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div>
+        <button 
+          id="blowCandlesBtn"
+          onclick="blowCandles()"
+          class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/30 transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+        >
+          💨 Blow Out The Candles!
+        </button>
+      </div>
+
+      <!-- Secret Wish Unlocked Message -->
+      <div id="wishMessage" class="hidden p-4 rounded-xl bg-sapphire-900/80 border border-amber-400/50 text-xs text-amber-200 animate-fade-in space-y-1">
+        <div class="font-bold text-white text-sm">🎉 Wish Dispatched to the Universe!</div>
+        <p>May your 19th year bring absolute mastery of the guitar, fluent Mandarin, exciting trips, delicious homemade cakes, and endless joy. You deserve the best!</p>
+      </div>
+
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SAU'S PERSONAL LETTER TO JULIE                                 -->
+    <!-- ============================================================== -->
+    <section class="max-w-2xl mx-auto p-6 sm:p-10 rounded-3xl glass-card border border-sapphire-400/30 shadow-2xl relative space-y-6">
+      
+      <div class="flex items-center justify-between border-b border-sapphire-500/20 pb-4">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-sapphire-500/20 text-sapphire-300 flex items-center justify-center font-bold text-xs">
+            ✉️
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white">A Letter From Sau</div>
+            <div class="text-[10px] text-slate-400 font-mono">To: Margaret (Julie) • November 23, 2026</div>
+          </div>
+        </div>
+        <span class="text-xs font-mono text-amber-400 font-bold">19 Years Young</span>
+      </div>
+
+      <div class="font-serif text-sm sm:text-base text-slate-200 leading-relaxed space-y-4">
+        <p class="italic text-slate-100 font-serif">
+          Dear Julie,
+        </p>
+        <p>
+          Happy 19th Birthday! 🎂✨
+        </p>
+        <p>
+          I still remember when we first started talking in January about learning Russian and Mandarin, and how you kindly changed our chat theme to Apple and Care. Ever since then, you’ve been one of the most supportive, genuine, and encouraging friends anyone could ever ask for.
+        </p>
+        <p>
+          Whenever I was stuck debugging websites late at night—whether it was the first web game, the audio synthesis on LexiVerse, the VPN crash on Bondly, or the multi-model architecture of Accurator—you were always right there to test it with a smile, cheering me on with your iconic emoticons: <span class="text-amber-300 font-mono font-normal">(*^^*)</span> and <span class="text-amber-300 font-mono font-normal">(≡^∇^≡)</span>, and your stylish <span class="text-rose-300">💅</span>.
+        </p>
+        <p>
+          You once said that what motivated you most was <em>"the very possibility of learning to understand another language"</em>, and when you told me you wanted <em>"something like a book"</em> for your birthday, I wanted to build you this entire universe: preserving our story together, celebrating your talents (from playing guitar to baking cakes), and giving you the <strong>Book of Mandarin</strong> and <strong>StrokeFlow</strong> to accompany your Chinese journey.
+        </p>
+        <p>
+          And remember what you said in August? <em>"In the future I want to see your book on the shelves of a bookstore 💅"</em>. That belief means the world to me.
+        </p>
+        <p>
+          Thank you for being such an extraordinary friend. I hope 19 treats you with kindness, good health, great music on your guitar, and incredible adventures.
+        </p>
+        <p class="pt-2">
+          Stay awesome,<br />
+          <strong class="text-white font-sans text-base">Sau (Your favorite "Ogre" 😄)</strong>
+        </p>
+      </div>
+
+      <div class="pt-4 border-t border-sapphire-500/20 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2">
+        <span>С Днём Рождения, Джули! 🇷🇺</span>
+        <span class="font-chinese text-rose-300 text-sm">祝你十九岁生日快乐！🇨🇳</span>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center pt-8 pb-16 text-xs text-slate-500 space-y-2">
+      <div class="flex items-center justify-center gap-2">
+        <span>Handcrafted with</span>
+        <i data-lucide="heart" class="w-3.5 h-3.5 text-rose-500 fill-rose-500"></i>
+        <span>by Sau for Julie's 19th Birthday</span>
+      </div>
+      <p class="font-mono text-[11px] text-slate-600">November 23, 2026 • All rights to friendship reserved</p>
+    </footer>
+
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- INTERACTIVE STUDY MODAL / DRAWER                               -->
+  <!-- ============================================================== -->
+  <div id="studyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-midnight border-2 border-sapphire-400/40 rounded-3xl max-w-lg w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl animate-fade-in">
+      
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-sapphire-500/30 flex items-center justify-between bg-sapphire-950/80">
+        <div class="flex items-center gap-2.5">
+          <span id="modalIcon" class="text-xl">📖</span>
+          <div>
+            <h4 id="modalTitle" class="font-bold text-white text-sm sm:text-base">Resource Viewer</h4>
+            <div id="modalSubtitle" class="text-[10px] text-slate-400 font-mono">Julie's Book of Mandarin</div>
+          </div>
+        </div>
+        <button onclick="closeStudyModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-sm transition-colors cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Dynamic Body -->
+      <div id="modalBody" class="p-5 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-300">
+        <!-- Content injected dynamically via openStudyModal(type) -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-sapphire-500/30 bg-sapphire-950/60 flex items-center justify-between">
+        <span class="text-[10px] text-slate-400 font-mono">Curated with love by Sau</span>
+        <button onclick="closeStudyModal()" class="px-4 py-2 rounded-xl bg-sapphire-600 hover:bg-sapphire-500 text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">
+          Close Reader
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT: LOGIC & AUDIO SYNTHESIZER & CONFETTI               -->
+  <!-- ============================================================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // -----------------------------------------------------------------
+    // 1. STARFIELD CANVAS ANIMATION
+    // -----------------------------------------------------------------
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      stars = [];
+      const numStars = Math.floor((canvas.width * canvas.height) / 5000);
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.3 + 0.3,
+          alpha: Math.random() * 0.8 + 0.2,
+          speed: Math.random() * 0.02 + 0.005,
+          color: Math.random() > 0.3 ? '#bfd5fd' : '#fef08a'
+        });
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function renderStarfield() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        star.alpha += star.speed;
+        if (star.alpha > 1 || star.alpha < 0.2) {
+          star.speed = -star.speed;
+        }
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = Math.max(0, Math.min(1, star.alpha));
+        ctx.fill();
+      }
+      requestAnimationFrame(renderStarfield);
+    }
+    renderStarfield();
+
+    // -----------------------------------------------------------------
+    // 2. LIVE COUNTDOWN TO NOVEMBER 23, 2026
+    // -----------------------------------------------------------------
+    const targetDate = new Date('2026-11-23T00:00:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').innerText = '00';
+        document.getElementById('hours').innerText = '00';
+        document.getElementById('minutes').innerText = '00';
+        document.getElementById('seconds').innerText = '00';
+        document.getElementById('countdownStatus').innerText = '🎉 TODAY IS HER BIRTHDAY!';
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = String(d).padStart(2, '0');
+      document.getElementById('hours').innerText = String(h).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // -----------------------------------------------------------------
+    // 3. BOOK OF MANDARIN CHAPTER SWITCHER
+    // -----------------------------------------------------------------
+    function switchBookChapter(num) {
+      for (let i = 1; i <= 4; i++) {
+        const page = document.getElementById(`book-page-${i}`);
+        const tab = document.getElementById(`book-tab-${i}`);
+        if (i === num) {
+          page.classList.remove('hidden');
+          tab.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-400 text-slate-950 shrink-0 shadow-lg shadow-amber-400/20 flex items-center gap-1.5 cursor-pointer";
+        } else {
+          page.classList.add('hidden');
+          tab.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sapphire-900/60 hover:bg-sapphire-800 text-slate-300 shrink-0 flex items-center gap-1.5 cursor-pointer";
+        }
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // 4. WEB AUDIO SYNTHESIZER: MANDARIN TONES SIMULATOR
+    // -----------------------------------------------------------------
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playToneAudio(toneNum, pinyin, char, desc) {
+      const feedback = document.getElementById('toneFeedback');
+      feedback.innerHTML = `<span class="text-amber-400 font-bold">${char} (${pinyin})</span>: ${desc}`;
+
+      // Try SpeechSynthesis first if Chinese voice exists
+      let spoke = false;
+      if ('speechSynthesis' in window) {
+        try {
+          const utterance = new SpeechSynthesisUtterance(char);
+          utterance.lang = 'zh-CN';
+          utterance.rate = 0.85;
+          speechSynthesis.speak(utterance);
+          spoke = true;
+        } catch(e) {}
+      }
+
+      // Synthesize realistic pitch contour using Web Audio API
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+
+        const now = ctx.currentTime;
+        const duration = 0.65;
+
+        // Base frequency ~220Hz
+        if (toneNum === 1) {
+          // 1st tone: High flat 55
+          osc.frequency.setValueAtTime(330, now);
+          osc.frequency.setValueAtTime(330, now + duration);
+        } else if (toneNum === 2) {
+          // 2nd tone: Rising 35
+          osc.frequency.setValueAtTime(240, now);
+          osc.frequency.linearRampToValueAtTime(350, now + duration);
+        } else if (toneNum === 3) {
+          // 3rd tone: Dipping 214
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(170, now + duration * 0.4);
+          osc.frequency.linearRampToValueAtTime(280, now + duration);
+        } else if (toneNum === 4) {
+          // 4th tone: Falling 51
+          osc.frequency.setValueAtTime(360, now);
+          osc.frequency.exponentialRampToValueAtTime(170, now + duration);
+        }
+
+        gain.gain.setValueAtTime(0.01, now);
+        gain.gain.linearRampToValueAtTime(0.2, now + 0.05);
+        gain.gain.linearRampToValueAtTime(0.001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now);
+        osc.stop(now + duration);
+      } catch (e) {
+        console.log("Audio error", e);
+      }
+    }
+
+    // -----------------------------------------------------------------
+    // 5. INTERACTIVE STUDY MODAL / DRAWER HANDLERS
+    // -----------------------------------------------------------------
+    const studyModal = document.getElementById('studyModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalBody = document.getElementById('modalBody');
+
+    // Interactive Flashcard State
+    let flashcardIndex = 0;
+    const flashcardsData = [
+      { char: "朋友", pinyin: "péng you", meaning: "Friend", example: "Julie 是我非常好的朋友 (Julie is my very good friend)." },
+      { char: "生日快乐", pinyin: "shēng rì kuài lè", meaning: "Happy Birthday!", example: "祝你十九岁生日快乐！(Wishing you a happy 19th birthday!)" },
+      { char: "学习", pinyin: "xué xí", meaning: "To study / learn", example: "学习汉语很有意思 (Learning Chinese is very interesting)." },
+      { char: "蛋糕", pinyin: "dàn gāo", meaning: "Cake", example: "我自己做了一个生日蛋糕 (I baked a birthday cake myself)." },
+      { char: "吉他", pinyin: "jí tā", meaning: "Guitar", example: "她会弹吉他 (She knows how to play the guitar)." },
+      { char: "书店", pinyin: "shū diàn", meaning: "Bookstore", example: "在书店的书架上看到你的书 (Seeing your book on bookstore shelves)." },
+      { char: "坚持不懈", pinyin: "jiān chí bù xiè", meaning: "Unwavering perseverance", example: "坚持不懈地练习 (Practicing with unyielding perseverance)." },
+    ];
+
+    function openStudyModal(type) {
+      studyModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      if (type === 'flashcards') {
+        modalIcon.innerText = "🎴";
+        modalTitle.innerText = "HSK 1-2 Interactive Flashcards";
+        modalSubtitle.innerText = "Tap card to flip • Julie's Custom Vocabulary";
+        renderFlashcardUI();
+      } else if (type === 'pinyin') {
+        modalIcon.innerText = "🎧";
+        modalTitle.innerText = "Pinyin & Audio Phonetics Lab";
+        modalSubtitle.innerText = "21 Initials, 36 Finals & Tone Drills";
+        modalBody.innerHTML = `
+          <div class="space-y-4">
+            <p class="text-xs text-slate-300">
+              Pinyin maps every sound of Mandarin. Practice speaking aloud and clicking each button to listen:
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <button onclick="playToneAudio(1, 'bā', '八', 'Eight')" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-left hover:border-amber-400">
+                <div class="font-bold text-amber-300 text-sm">b - bā (八)</div>
+                <div class="text-[10px] text-slate-400">Unaspirated P sound</div>
+              </button>
+              <button onclick="playToneAudio(1, 'pā', '趴', 'Lie Flat')" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-left hover:border-amber-400">
+                <div class="font-bold text-amber-300 text-sm">p - pā (趴)</div>
+                <div class="text-[10px] text-slate-400">Aspirated burst of air</div>
+              </button>
+              <button onclick="playToneAudio(2, 'hé', '和', 'And / Harmony')" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-left hover:border-amber-400">
+                <div class="font-bold text-cyan-300 text-sm">h - hé (和)</div>
+                <div class="text-[10px] text-slate-400">Soft gutteral breath</div>
+              </button>
+              <button onclick="playToneAudio(3, 'nǐ', '你', 'You')" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-left hover:border-amber-400">
+                <div class="font-bold text-amber-300 text-sm">n - nǐ (你)</div>
+                <div class="text-[10px] text-slate-400">Nasal tone 3 dip</div>
+              </button>
+              <button onclick="playToneAudio(3, 'hǎo', '好', 'Good / Fine')" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-left hover:border-amber-400">
+                <div class="font-bold text-emerald-300 text-sm">hǎo (好)</div>
+                <div class="text-[10px] text-slate-400">Dip & rise 214</div>
+              </button>
+              <button onclick="playToneAudio(4, 'xiè', '谢', 'Thanks')" class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-left hover:border-amber-400">
+                <div class="font-bold text-rose-300 text-sm">xiè (谢)</div>
+                <div class="text-[10px] text-slate-400">Sharp falling tone 51</div>
+              </button>
+            </div>
+            <div class="p-3 rounded-xl bg-sapphire-950 border border-sapphire-500/30 text-xs text-slate-300">
+              💡 <strong>Tone Sandhi Secret:</strong> When two 3rd tones appear consecutively (like 你 nǐ + 好 hǎo), the first tone automatically turns into a 2nd rising tone (ní hǎo)!
+            </div>
+          </div>
+        `;
+      } else if (type === 'radicals') {
+        modalIcon.innerText = "📖";
+        modalTitle.innerText = "The Essential Radicals Codex";
+        modalSubtitle.innerText = "50 Radicals That Build Chinese Characters";
+        modalBody.innerHTML = `
+          <div class="space-y-3">
+            <p class="text-xs text-slate-300">Radicals give the semantic clue to what a character means:</p>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+                <span class="font-chinese text-xl text-amber-400">氵</span>
+                <strong class="text-white">三点水 (Water)</strong>
+                <p class="text-[10px] text-slate-400">Found in 江 (river), 海 (ocean), 洗 (wash).</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+                <span class="font-chinese text-xl text-rose-400">心 / 忄</span>
+                <strong class="text-white">心字底 (Heart/Mind)</strong>
+                <p class="text-[10px] text-slate-400">Found in 想 (think), 忙 (busy), 忆 (memory).</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+                <span class="font-chinese text-xl text-emerald-400">艹</span>
+                <strong class="text-white">草字头 (Grass/Plants)</strong>
+                <p class="text-[10px] text-slate-400">Found in 茶 (tea), 花 (flower), 菜 (vegetable).</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+                <span class="font-chinese text-xl text-cyan-400">言 / 讠</span>
+                <strong class="text-white">言字旁 (Speech/Words)</strong>
+                <p class="text-[10px] text-slate-400">Found in 话 (speech), 语 (language), 说 (speak).</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (type === 'dialogue') {
+        modalIcon.innerText = "🗣️";
+        modalTitle.innerText = "Situational Dialogue: Language & Friendship";
+        modalSubtitle.innerText = "Interactive Script with Audio Pronunciation";
+        modalBody.innerHTML = `
+          <div class="space-y-3 font-sans">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+              <div class="text-[10px] font-mono text-amber-400">Sau:</div>
+              <div class="text-sm font-chinese text-white">朱莉，祝你十九岁生日快乐！</div>
+              <div class="text-xs text-slate-400 italic">Zhūlì, zhù nǐ shí jiǔ suì shēngrì kuàilè! (Julie, happy 19th birthday!)</div>
+            </div>
+            <div class="p-3 rounded-xl bg-sapphire-950 border border-sapphire-500/30 space-y-1">
+              <div class="text-[10px] font-mono text-sapphire-300">Julie:</div>
+              <div class="text-sm font-chinese text-white">谢谢你！我今天烤了一个非常好吃的蛋糕。</div>
+              <div class="text-xs text-slate-400 italic">Xièxie nǐ! Wǒ jīntiān kǎo le yī gè fēicháng hǎochī de dàngāo. (Thank you! Today I baked a delicious cake.)</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+              <div class="text-[10px] font-mono text-amber-400">Sau:</div>
+              <div class="text-sm font-chinese text-white">你的中文进步得真快！我们一起加油！</div>
+              <div class="text-xs text-slate-400 italic">Nǐ de zhōngwén jìnbù de zhēn kuài! Wǒmen yīqǐ jiāyóu! (Your Chinese is improving so fast! Let's keep going together!)</div>
+            </div>
+          </div>
+        `;
+      } else if (type === 'stories') {
+        modalIcon.innerText = "📖";
+        modalTitle.innerText = "Graded Story: The Girl Who Plays Guitar";
+        modalSubtitle.innerText = "HSK 2-3 Level Reading Practice";
+        modalBody.innerHTML = `
+          <div class="space-y-4 font-serif text-sm leading-relaxed text-slate-200">
+            <p>
+              从前，有一个女孩叫朱莉。她有一头漂亮的波浪头发，有时候会变成可爱的卷发。她最喜欢的乐器是吉他。
+            </p>
+            <p class="text-xs font-sans text-slate-400 italic">
+              (Once upon a time, there was a girl named Julie. She had beautiful wavy hair that sometimes curled. Her favorite instrument was the guitar.)
+            </p>
+            <p>
+              朱莉非常善良，也喜欢学习新的语言。每天下午，当阳光照进房间时，她会弹奏温暖的音乐，然后打开中文书，写下汉字。
+            </p>
+            <p class="text-xs font-sans text-slate-400 italic">
+              (Julie was very kind and loved learning new languages. Every afternoon, as sunlight filled the room, she played warm music and opened her Chinese book to write characters.)
+            </p>
+          </div>
+        `;
+      } else if (type === 'audio_course') {
+        modalIcon.innerText = "🎙️";
+        modalTitle.innerText = "Pimsleur & Native Audio Listening Syllabus";
+        modalSubtitle.innerText = "Auditory Spaced Repetition for Conversational Ease";
+        modalBody.innerHTML = `
+          <div class="space-y-3 text-xs text-slate-300">
+            <p>
+              The Pimsleur audio approach uses natural conversation prompts: you hear a native speaker, pause to formulate your response in Chinese, then hear the confirmation.
+            </p>
+            <div class="space-y-2">
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">Unit 1-10: Everyday Greetings & Socializing</div>
+                  <div class="text-[10px] text-slate-400">Polite questions, introductions, asking directions.</div>
+                </div>
+                <span class="text-emerald-400 font-mono text-[10px]">Level 1</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">Unit 11-20: Hobbies, Cuisine & Baking</div>
+                  <div class="text-[10px] text-slate-400">Discussing musical instruments, favorite foods & cakes.</div>
+                </div>
+                <span class="text-amber-400 font-mono text-[10px]">Level 2</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-white text-xs">Unit 21-30: Complex Sentences & Travel</div>
+                  <div class="text-[10px] text-slate-400">Expressing opinions, travel experiences, future dreams.</div>
+                </div>
+                <span class="text-rose-400 font-mono text-[10px]">Level 3</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    function renderFlashcardUI() {
+      const card = flashcardsData[flashcardIndex];
+      modalBody.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>Card ${flashcardIndex + 1} of ${flashcardsData.length}</span>
+            <span class="text-[10px] text-amber-400">Tap card to flip</span>
+          </div>
+
+          <!-- Flip Card Container -->
+          <div 
+            id="interactiveCard"
+            onclick="toggleCardFlip()" 
+            class="w-full h-48 rounded-2xl bg-gradient-to-br from-sapphire-900 via-midnight to-slate-900 border-2 border-sapphire-400/50 p-6 flex flex-col items-center justify-center text-center cursor-pointer shadow-xl transition-all select-none hover:border-amber-400"
+          >
+            <div id="cardFront" class="space-y-2">
+              <div class="text-4xl font-chinese font-bold text-amber-300">${card.char}</div>
+              <div class="text-sm font-mono text-sapphire-300">${card.pinyin}</div>
+              <div class="text-[10px] text-slate-400">Tap to see English & Example</div>
+            </div>
+            <div id="cardBack" class="space-y-2 hidden">
+              <div class="text-lg font-bold text-white">${card.meaning}</div>
+              <div class="text-xs text-slate-300 italic max-w-xs">${card.example}</div>
+              <div class="text-[10px] text-amber-300">Tap to flip back</div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="flex items-center justify-between pt-2">
+            <button onclick="prevFlashcard()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1 cursor-pointer">
+              ← Previous
+            </button>
+            <button onclick="playToneAudio(1, '${card.pinyin}', '${card.char}', '${card.meaning}')" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold flex items-center gap-1 cursor-pointer">
+              🔊 Pronounce
+            </button>
+            <button onclick="nextFlashcard()" class="px-4 py-2 rounded-xl bg-sapphire-600 hover:bg-sapphire-500 text-white font-bold text-xs flex items-center gap-1 cursor-pointer">
+              Next →
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleCardFlip() {
+      const front = document.getElementById('cardFront');
+      const back = document.getElementById('cardBack');
+      if (front.classList.contains('hidden')) {
+        front.classList.remove('hidden');
+        back.classList.add('hidden');
+      } else {
+        front.classList.add('hidden');
+        back.classList.remove('hidden');
+      }
+    }
+
+    function nextFlashcard() {
+      flashcardIndex = (flashcardIndex + 1) % flashcardsData.length;
+      renderFlashcardUI();
+    }
+    function prevFlashcard() {
+      flashcardIndex = (flashcardIndex - 1 + flashcardsData.length) % flashcardsData.length;
+      renderFlashcardUI();
+    }
+
+    function closeStudyModal() {
+      studyModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // -----------------------------------------------------------------
+    // 6. CHAPTER NAVIGATION DATA & LOGIC
+    // -----------------------------------------------------------------
+    const chapters = [
+      {
+        num: 1,
+        date: "January 29, 2026",
+        badge: "How It Started",
+        title: "Chapter I: The Genesis & The Language Exchange",
+        story: `"You're julie from russia right? — Yesss, it's me)". That day, you changed the Instagram chat theme to Apple and Care. We talked about learning Mandarin Chinese, HSK levels, and Russian. It was the start of an unforgettable friendship.`,
+        quote: `"Oh, thanks for the advice! I'm learning Chinese with a tutor, so I'm already following the program ✨️"`
+      },
+      {
+        num: 2,
+        date: "February 13 - March 17, 2026",
+        badge: "The Gamer & Coder",
+        title: "Chapter II: The First Game & The Birthday Discovery",
+        story: `Sau built his very first text game, and Julie was right there testing it alone. On March 17, while testing the Web Calculator, you exchanged birthdays: Julie on November 23rd, Sau on May 20th.`,
+        quote: `"I think that if you can do it, then do it. I'm always ready to test anything :)"`
+      },
+      {
+        num: 3,
+        date: "March 31 - April 06, 2026",
+        badge: "The Slavic Polyglot",
+        title: "Chapter III: Slavic Languages & Audio Diagnostics",
+        story: `When Sau shared LangoSphere, Julie was delighted to see Slavic and Russian included. On LexiVerse, she tested the vocabulary stories on both phone and laptop, catching the browser audio bug with keen developer eyes!`,
+        quote: `"I really like that you included Slavic languages, that's great 😄"`
+      },
+      {
+        num: 4,
+        date: "May 29 - May 30, 2026",
+        badge: "Official Beta Tester #1",
+        title: "Chapter IV: The Bondly Social Launch",
+        story: `Sau launched Bondly to the world and asked for brave testers. Julie jumped in immediately, loved the design, caught the VPN connection crash, and earned the title of Official Beta Tester #1.`,
+        quote: `"I'm always happy to help you with website testing Sau 🤍"`
+      },
+      {
+        num: 5,
+        date: "July 17, 2026",
+        badge: "Egyptian Adventure",
+        title: "Chapter V: Sharm el Sheikh & The Legendary Mulukhiya",
+        story: `Julie returned from a family vacation in Egypt. Even though the desert heat was intense, she explored the nature reserve and fell in love with a traditional Egyptian soup called Mulukhiya!`,
+        quote: `"Yes, it was an unforgettable place and emotions... a very tasty soup made from leaves 🍲"`
+      },
+      {
+        num: 6,
+        date: "July 27 - August 18, 2026",
+        badge: "The Author's Triumph",
+        title: "Chapter VI: The Questions That Heal & Bookstore Dreams",
+        story: `Sau completed his first published book. Julie read it, cheered him on, and gave the most heartwarming encouragement that echoed through the international chat: 'In the future I want to see your book on the shelves of a bookstore 💅'.`,
+        quote: `"In the future I want to see your book on the shelves of a bookstore 💅 ... It's inspiring 🫂"`
+      },
+      {
+        num: 7,
+        date: "November 20, 2026",
+        badge: "The 19th Birthday Mission",
+        title: "Chapter VII: Accurator & The Famous 'Ogre' Autocorrect",
+        story: `Just 3 days before Julie's 19th birthday, Sau completed Accurator. Julie tested it and sent the iconic message: 'Ogre, this is a very good idea!'. That morning, the secret mission to build this website began.`,
+        quote: `"Ogre, this is a very good idea, I really like it ^^ ... Thanksss ❤Sau"`
+      }
+    ];
+
+    let currentChapterIndex = 0;
+
+    function renderChapter(index) {
+      currentChapterIndex = index;
+      const c = chapters[index];
+      
+      document.getElementById('chapterDate').innerText = c.date;
+      document.getElementById('chapterBadge').innerText = c.badge;
+      document.getElementById('chapterTitle').innerText = c.title;
+      document.getElementById('chapterStory').innerText = c.story;
+      document.getElementById('chapterQuote').innerText = c.quote;
+      document.getElementById('chapterPageNum').innerText = `${c.num} / 7`;
+
+      // Update button styles
+      for (let i = 1; i <= 7; i++) {
+        const btn = document.getElementById(`tab-${i}`);
+        if (i === c.num) {
+          btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-600 text-white shrink-0 shadow-md shadow-sapphire-600/30 cursor-pointer";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-sapphire-900/50 hover:bg-sapphire-800 text-slate-300 shrink-0 cursor-pointer";
+        }
+      }
+    }
+
+    function switchChapter(num) {
+      renderChapter(num - 1);
+    }
+    function nextChapter() {
+      const next = (currentChapterIndex + 1) % chapters.length;
+      renderChapter(next);
+    }
+    function prevChapter() {
+      const prev = (currentChapterIndex - 1 + chapters.length) % chapters.length;
+      renderChapter(prev);
+    }
+
+    // -----------------------------------------------------------------
+    // 7. CONFETTI BURST CELEBRATION
+    // -----------------------------------------------------------------
+    function triggerCelebrationConfetti() {
+      const count = 180;
+      const defaults = { origin: { y: 0.7 } };
+
+      function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        }));
+      }
+
+      fire(0.25, { spread: 26, startVelocity: 55, colors: ['#6094fb', '#facc15'] });
+      fire(0.2, { spread: 60, colors: ['#bfd5fd', '#ffffff'] });
+      fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8, colors: ['#3875f6', '#eab308'] });
+      fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2, colors: ['#193f9c', '#fef08a'] });
+      fire(0.1, { spread: 120, startVelocity: 45, colors: ['#2359d4', '#ca8a04'] });
+    }
+
+    // -----------------------------------------------------------------
+    // 8. INTERACTIVE CANDLE BLOWING & MAKE A WISH
+    // -----------------------------------------------------------------
+    let candlesBlown = false;
+    function blowCandles() {
+      if (candlesBlown) return;
+      candlesBlown = true;
+
+      const flames = document.querySelectorAll('.flame');
+      const smokes = document.querySelectorAll('.flame-smoke');
+
+      flames.forEach(f => f.style.display = 'none');
+      smokes.forEach(s => s.style.display = 'block');
+
+      const btn = document.getElementById('blowCandlesBtn');
+      btn.innerText = '✨ Candles Blown Out! Wish Made ✨';
+      btn.className = 'px-6 py-3.5 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider cursor-default shadow-lg shadow-emerald-600/30';
+
+      document.getElementById('wishMessage').classList.remove('hidden');
+
+      // Trigger massive confetti celebration
+      triggerCelebrationConfetti();
+      setTimeout(triggerCelebrationConfetti, 400);
+      setTimeout(triggerCelebrationConfetti, 800);
+    }
+
+    // -----------------------------------------------------------------
+    // 9. PROCEDURAL ACOUSTIC GUITAR SERENADE (HAPPY BIRTHDAY)
+    // -----------------------------------------------------------------
+    let isPlayingMusic = false;
+    let melodyTimeout = null;
+
+    function playGuitarPluck(freq, time, duration = 1.2) {
+      const ctx = getAudioContext();
+      
+      const osc = ctx.createOscillator();
+      const oscHarmonic = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle';
+      oscHarmonic.type = 'sine';
+
+      osc.frequency.setValueAtTime(freq, time);
+      oscHarmonic.frequency.setValueAtTime(freq * 2, time);
+
+      gain.gain.setValueAtTime(0.001, time);
+      gain.gain.exponentialRampToValueAtTime(0.3, time + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+
+      osc.connect(gain);
+      oscHarmonic.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(time);
+      oscHarmonic.start(time);
+      osc.stop(time + duration);
+      oscHarmonic.stop(time + duration);
+    }
+
+    const happyBirthdayNotes = [
+      { f: 261.63, d: 0.4 }, // C4
+      { f: 261.63, d: 0.4 }, // C4
+      { f: 293.66, d: 0.8 }, // D4
+      { f: 261.63, d: 0.8 }, // C4
+      { f: 349.23, d: 0.8 }, // F4
+      { f: 329.63, d: 1.4 }, // E4
+
+      { f: 261.63, d: 0.4 }, // C4
+      { f: 261.63, d: 0.4 }, // C4
+      { f: 293.66, d: 0.8 }, // D4
+      { f: 261.63, d: 0.8 }, // C4
+      { f: 392.00, d: 0.8 }, // G4
+      { f: 349.23, d: 1.4 }, // F4
+
+      { f: 261.63, d: 0.4 }, // C4
+      { f: 261.63, d: 0.4 }, // C4
+      { f: 523.25, d: 0.8 }, // C5
+      { f: 440.00, d: 0.8 }, // A4
+      { f: 349.23, d: 0.8 }, // F4
+      { f: 329.63, d: 0.8 }, // E4
+      { f: 293.66, d: 1.2 }, // D4
+
+      { f: 466.16, d: 0.4 }, // Bb4
+      { f: 466.16, d: 0.4 }, // Bb4
+      { f: 440.00, d: 0.8 }, // A4
+      { f: 349.23, d: 0.8 }, // F4
+      { f: 392.00, d: 0.8 }, // G4
+      { f: 349.23, d: 2.0 }, // F4
+    ];
+
+    function toggleGuitarSerenade() {
+      const ctx = getAudioContext();
+      const musicBtn = document.getElementById('musicToggleBtn');
+      const musicText = document.getElementById('musicText');
+
+      if (isPlayingMusic) {
+        isPlayingMusic = false;
+        clearTimeout(melodyTimeout);
+        musicText.innerText = 'Play Melody';
+        musicBtn.classList.remove('bg-amber-500', 'text-slate-950');
+        musicBtn.classList.add('bg-sapphire-900/80', 'text-amber-300');
+        return;
+      }
+
+      isPlayingMusic = true;
+      musicText.innerText = 'Playing...';
+      musicBtn.classList.add('bg-amber-500', 'text-slate-950');
+      musicBtn.classList.remove('bg-sapphire-900/80', 'text-amber-300');
+
+      let currentPluckTime = ctx.currentTime + 0.1;
+
+      happyBirthdayNotes.forEach((note) => {
+        playGuitarPluck(note.f, currentPluckTime, note.d * 1.5);
+        currentPluckTime += note.d * 0.9;
+      });
+
+      const totalDuration = (currentPluckTime - ctx.currentTime) * 1000;
+      melodyTimeout = setTimeout(() => {
+        isPlayingMusic = false;
+        musicText.innerText = 'Play Melody';
+        musicBtn.classList.remove('bg-amber-500', 'text-slate-950');
+        musicBtn.classList.add('bg-sapphire-900/80', 'text-amber-300');
+      }, totalDuration);
+    }
+
+    // Auto-fire welcome confetti once on load
+    window.addEventListener('load', () => {
+      setTimeout(triggerCelebrationConfetti, 800);
+    });
+  </script>
+</body>
+</html>
