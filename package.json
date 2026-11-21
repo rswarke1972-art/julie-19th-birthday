@@ -1,0 +1,23 @@
+{
+  "name": "julie_birthday_website",
+  "version": "1.0.0",
+  "description": "A handcrafted interactive universe and virtual gift created by **Sau** for **Julie (Margaret, `@margarin599`)** on her 19th Birthday (November 23, 2026).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rswarke1972-art/julie-19th-birthday.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rswarke1972-art/julie-19th-birthday/issues"
+  },
+  "homepage": "https://github.com/rswarke1972-art/julie-19th-birthday#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
